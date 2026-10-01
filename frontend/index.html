@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="pt-BR">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="theme-color" content="#f6f7f8">
+		<meta name="description" content="Alertas comunitários e informações de segurança para sua região.">
+		<title>Bairro Alerta | Segurança da sua região</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="styles/global.css">
+	</head>
+	<body>
+		<header class="topbar">
+			<a class="brand" href="#inicio" aria-label="Bairro Alerta, início">
+				<span class="brand-mark" aria-hidden="true">!</span>
+				<span class="brand-copy"><strong>Bairro Alerta</strong><small>Informação que protege</small></span>
+			</a>
+
+			<nav class="main-nav" aria-label="Navegação principal">
+				<a class="nav-link active" href="#inicio">Início</a>
+				<a class="nav-link" href="#alertas">Alertas</a>
+				<a class="nav-link" href="#mapa">Mapa de riscos</a>
+				<a class="nav-link" href="#orientacoes">Orientações</a>
+			</nav>
+
+			<div class="top-actions">
+				<a class="location-select" href="#mapa"><span aria-hidden="true">⌖</span> São Paulo, SP <span class="chevron">⌄</span></a>
+				<a class="report-button" href="pages/criar-alerta.html"><span aria-hidden="true">＋</span> Reportar ocorrência</a>
+				<button class="menu-button" type="button" aria-label="Abrir menu"><span></span><span></span><span></span></button>
+			</div>
+		</header>
+
+		<main id="inicio" class="page-shell">
+			<section class="urgent-banner" aria-labelledby="urgent-title">
+				<div class="urgent-icon" aria-hidden="true">!</div>
+				<div class="urgent-copy">
+					<p class="eyebrow">Alerta comunitário · atualizado há 12 min</p>
+					<h1 id="urgent-title">Chuva intensa e risco de alagamento</h1>
+					<p>Moradores relatam água subindo na região do córrego. Evite vias baixas e acompanhe as atualizações.</p>
+				</div>
+				<div class="urgent-level"><span class="level-pulse"></span><span><strong>Risco alto</strong><small>Zona Leste · São Paulo</small></span></div>
+				<a class="urgent-link" href="#alertas">Ver alerta <span aria-hidden="true">→</span></a>
+			</section>
+
+			<section class="overview-grid" aria-label="Condições da região">
+				<article class="weather-panel">
+					<div class="panel-heading"><span class="sun-icon" aria-hidden="true">☼</span><div><p class="panel-kicker">Agora na sua região</p><h2>Tempo instável</h2></div></div>
+					<div class="weather-reading"><strong>27°</strong><div><span>Chuva moderada</span><small>Sensação de 29° · Umidade 84%</small></div></div>
+					<div class="weather-foot"><span class="rain-dots" aria-hidden="true">•••</span> Pancadas previstas para as próximas horas</div>
+				</article>
+
+				<article class="risk-panel">
+					<div class="panel-heading"><span class="panel-icon risk-symbol" aria-hidden="true">⌁</span><div><p class="panel-kicker">Monitoramento local</p><h2>Riscos ativos</h2></div></div>
+					<ul class="risk-list">
+						<li><span class="risk-name"><i class="risk-dot water"></i>Alagamento</span><strong class="risk-high">Alto</strong></li>
+						<li><span class="risk-name"><i class="risk-dot rain"></i>Chuva forte</span><strong class="risk-medium">Atenção</strong></li>
+						<li><span class="risk-name"><i class="risk-dot wind"></i>Deslizamento</span><strong class="risk-low">Baixo</strong></li>
+					</ul>
+				</article>
+
+				<article class="shelter-panel">
+					<div class="panel-heading"><span class="shelter-icon" aria-hidden="true">⌂</span><div><p class="panel-kicker">Apoio por perto</p><h2>Pontos seguros</h2></div></div>
+					<p class="shelter-description">Encontre abrigos e locais de apoio próximos de você.</p>
+					<a class="text-link" href="#mapa">Ver pontos no mapa <span aria-hidden="true">→</span></a>
+				</article>
+			</section>
+
+			<section class="content-grid">
+				<section id="mapa" class="map-panel" aria-labelledby="map-title">
+					<div class="section-heading map-heading">
+						<div><p class="panel-kicker">Acompanhe sua vizinhança</p><h2 id="map-title">Mapa de riscos</h2></div>
+						<span class="map-label">MAPA ILUSTRATIVO</span>
+					</div>
+					<div class="map-frame">
+						<!-- Mapa fictício desenhado localmente: não usa API nem representa localização real. -->
+						<svg class="imaginary-map" viewBox="0 0 900 500" role="img" aria-labelledby="map-image-title map-image-description" preserveAspectRatio="xMidYMid slice">
+							<title id="map-image-title">Mapa ilustrativo do Bairro Alerta</title>
+							<desc id="map-image-description">Mapa fictício com ruas, parque, córrego e áreas demonstrativas de chuva e alagamento.</desc>
+							<rect width="900" height="500" fill="#e8eee4" />
+							<path d="M-30 110 C150 65 225 160 365 120 S610 56 930 118 M-20 385 C120 330 260 420 410 360 S720 310 930 370 M125 -20 C90 100 175 180 125 280 S115 415 170 530 M510 -20 C465 95 555 180 510 275 S500 420 565 520 M790 -20 C730 90 815 205 765 290 S760 410 810 520 M-20 245 C145 220 245 280 360 235 S645 205 930 250" fill="none" stroke="#cbd6c7" stroke-width="2" />
+							<path d="M-30 110 C150 65 225 160 365 120 S610 56 930 118 M-20 385 C120 330 260 420 410 360 S720 310 930 370 M125 -20 C90 100 175 180 125 280 S115 415 170 530 M510 -20 C465 95 555 180 510 275 S500 420 565 520 M790 -20 C730 90 815 205 765 290 S760 410 810 520 M-20 245 C145 220 245 280 360 235 S645 205 930 250" fill="none" stroke="#fffdf7" stroke-width="13" />
+							<path d="M-20 300 C120 265 165 300 250 315 S365 355 450 315 S560 230 645 260 S760 330 930 280" fill="none" stroke="#9bc9ca" stroke-width="25" />
+							<path d="M-20 300 C120 265 165 300 250 315 S365 355 450 315 S560 230 645 260 S760 330 930 280" fill="none" stroke="#cce5df" stroke-width="14" />
+							<path d="M270 35 Q340 10 390 52 L405 115 Q380 158 313 148 L260 105Z M625 355 Q690 322 748 355 L760 430 Q700 465 638 426Z" fill="#d0e3c9" />
+							<text x="290" y="82" fill="#62805c" font-size="15" font-family="sans-serif" font-weight="700">PARQUE DAS ACÁCIAS</text>
+							<text x="270" y="208" fill="#75836e" font-size="15" font-family="sans-serif">VILA DAS FLORES</text>
+							<text x="620" y="185" fill="#75836e" font-size="15" font-family="sans-serif">JARDIM DO VALE</text>
+							<text x="392" y="402" fill="#75836e" font-size="15" font-family="sans-serif">CENTRO</text>
+							<text x="575" y="285" fill="#568c91" font-size="12" font-family="sans-serif" font-weight="700">CÓRREGO</text>
+							<circle class="map-hazard map-hazard-flood" cx="600" cy="265" r="62" />
+							<circle class="map-hazard map-hazard-rain" cx="355" cy="180" r="49" />
+							<circle cx="600" cy="265" r="8" fill="#ce3936" stroke="#fff" stroke-width="4" />
+							<circle cx="355" cy="180" r="7" fill="#d99a38" stroke="#fff" stroke-width="4" />
+							<path d="M744 375l10 10-10 10-10-10z" fill="#328364" stroke="#fff" stroke-width="4" />
+						</svg>
+						<div class="map-markers" id="mapMarkers" aria-hidden="true"></div>
+						<div class="map-legend" aria-label="Legenda do mapa">
+							<span><i class="legend-dot red"></i>Alagamento</span>
+							<span><i class="legend-dot amber"></i>Chuva intensa</span>
+							<span><i class="legend-dot green"></i>Ponto seguro</span>
+						</div>
+						<div class="map-callout"><span class="callout-icon" aria-hidden="true">⌂</span><div><strong>Abrigo mais próximo</strong><small>CEU Tiquatira · 1,2 km</small><a href="#apoio">Ver rota <span aria-hidden="true">→</span></a></div></div>
+					</div>
+					<div class="map-footer"><span><i class="live-dot"></i> Dados demonstrativos</span><span>Região fictícia · sem geolocalização real</span></div>
+				</section>
+
+				<aside id="alertas" class="alerts-panel" aria-labelledby="alerts-title">
+					<div class="section-heading alerts-heading"><div><p class="panel-kicker">Da comunidade</p><h2 id="alerts-title">Alertas recentes</h2></div><a class="view-all" href="#alertas">Ver todos <span aria-hidden="true">→</span></a></div>
+					<div class="alert-filters" role="tablist" aria-label="Filtrar alertas por tipo">
+						<button class="filter-active" type="button" role="tab" aria-selected="true" data-filter="todos">Todos <span class="filter-count">3</span></button>
+						<button type="button" role="tab" aria-selected="false" data-filter="alagamento">Alagamentos</button>
+						<button type="button" role="tab" aria-selected="false" data-filter="chuva">Chuvas</button>
+					</div>
+					<!-- BACKEND: substituir alertas demonstrativos pela resposta GET /api/alerts. -->
+					<div class="alert-list">
+						<article class="alert-item alert-red" data-category="alagamento"><span class="alert-sign" aria-hidden="true">!</span><div class="alert-details"><div class="alert-meta"><strong>ALERTA ALTO</strong><time>12 min</time></div><h3>Água subindo na rua do Córrego</h3><p>Vila das Flores · Raio 1,5 km · 3 confirmações</p></div><span class="alert-arrow" aria-hidden="true">›</span></article>
+						<article class="alert-item alert-amber" data-category="chuva"><span class="alert-sign" aria-hidden="true">!</span><div class="alert-details"><div class="alert-meta"><strong>ATENÇÃO</strong><time>38 min</time></div><h3>Chuva forte e baixa visibilidade</h3><p>Jardim do Vale · Raio 2 km · 2 confirmações</p></div><span class="alert-arrow" aria-hidden="true">›</span></article>
+						<article class="alert-item alert-blue" data-category="outros"><span class="alert-sign" aria-hidden="true">i</span><div class="alert-details"><div class="alert-meta"><strong>INFORMAÇÃO</strong><time>1 h</time></div><h3>Abrigo comunitário aberto</h3><p>Centro · atualizado há 10 min</p></div><span class="alert-arrow" aria-hidden="true">›</span></article>
+					</div>
+					<a class="all-alerts-button" href="#alertas">Acompanhar alertas da região <span aria-hidden="true">→</span></a>
+				</aside>
+			</section>
+
+			<section class="bottom-grid">
+				<article id="orientacoes" class="guide-panel">
+					<div class="bottom-heading"><span class="guide-symbol" aria-hidden="true">＋</span><div><p class="panel-kicker">Prepare-se</p><h2>Em caso de alagamento</h2></div><a href="#orientacoes" aria-label="Mais orientações">→</a></div>
+					<p class="guide-copy">A água pode subir rapidamente. Proteja-se e ajude quem está por perto.</p>
+					<div class="guide-steps"><span><b>01</b> Evite atravessar áreas alagadas</span><span><b>02</b> Desligue a energia se a água entrar</span><span><b>03</b> Ligue 199 em situação de risco</span></div>
+				</article>
+				<article class="report-panel">
+					<div class="bottom-heading"><span class="report-symbol" aria-hidden="true">＋</span><div><p class="panel-kicker">Ajude sua comunidade</p><h2>Viu uma situação de risco?</h2></div></div>
+					<p class="guide-copy">Seu relato ajuda vizinhos a tomar decisões com mais segurança.</p>
+					<a class="report-cta" href="pages/criar-alerta.html">Reportar ocorrência <span aria-hidden="true">→</span></a>
+				</article>
+				<article id="apoio" class="help-panel">
+					<span class="help-symbol" aria-hidden="true">♡</span><div><p class="panel-kicker">Em uma emergência</p><h2>Defesa Civil</h2><p>199 <span class="help-divider">·</span> Bombeiros 193</p></div>
+				</article>
+			</section>
+
+			<footer class="site-footer"><span><span class="footer-mark" aria-hidden="true">!</span> Bairro Alerta</span><span>Informação comunitária. Em emergências, ligue 199 ou 193.</span><a href="#inicio">Voltar ao início ↑</a></footer>
+		</main>
+		<script src="scripts/alerts.js" defer></script>
+	</body>
+</html>

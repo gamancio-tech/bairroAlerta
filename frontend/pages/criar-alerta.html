@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="pt-BR">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="theme-color" content="#f6f7f8">
+		<meta name="description" content="Registre um alerta comunitário para sua região.">
+		<title>Reportar ocorrência | Bairro Alerta</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="../styles/global.css">
+		<link rel="stylesheet" href="../styles/create-alert.css">
+	</head>
+	<body>
+		<header class="topbar">
+			<a class="brand" href="../index.html" aria-label="Voltar ao Bairro Alerta">
+				<span class="brand-mark" aria-hidden="true">!</span>
+				<span class="brand-copy"><strong>Bairro Alerta</strong><small>Informação que protege</small></span>
+			</a>
+			<a class="back-link" href="../index.html"><span aria-hidden="true">←</span> Voltar aos alertas</a>
+		</header>
+
+		<main class="create-shell">
+			<section class="create-intro" aria-labelledby="create-title">
+				<p class="eyebrow">Relato da comunidade</p>
+				<h1 id="create-title">Reportar ocorrência</h1>
+				<p>Compartilhe o que está acontecendo para que as pessoas próximas possam se proteger.</p>
+			</section>
+
+			<section class="create-form-panel" aria-label="Formulário de ocorrência">
+				<div class="form-note"><span aria-hidden="true">i</span><p>Não inclua dados pessoais. Em risco imediato, ligue para a Defesa Civil no <a href="tel:199">199</a>.</p></div>
+				<!-- BACKEND: conectar este formulário ao POST /api/alerts; rota requer autenticação JWT. -->
+				<form id="createAlertForm">
+					<div class="create-form-grid">
+						<label class="create-field field-wide">Título do alerta <span class="required-mark">*</span>
+							<input name="title" type="text" maxlength="70" placeholder="Ex.: Água subindo perto da ponte" required>
+						</label>
+						<label class="create-field">Tipo de ocorrência <span class="required-mark">*</span>
+							<select name="type" required>
+								<option value="alagamento">Alagamento</option>
+								<option value="chuva">Chuva forte</option>
+								<option value="deslizamento">Deslizamento</option>
+								<option value="vendaval">Vendaval</option>
+								<option value="calor">Calor extremo</option>
+							</select>
+						</label>
+						<label class="create-field">Gravidade <span class="required-mark">*</span>
+							<select name="severity" required>
+								<option value="BAIXA">Baixa</option>
+								<option value="MEDIA" selected>Média</option>
+								<option value="ALTA">Alta</option>
+								<option value="CRITICA">Crítica</option>
+							</select>
+						</label>
+						<label class="create-field field-wide">Bairro, rua ou referência <span class="required-mark">*</span>
+							<input name="location" type="text" maxlength="80" placeholder="Ex.: Vila das Flores, perto do córrego" required>
+						</label>
+						<label class="create-field radius-field">Raio estimado de impacto <span class="required-mark">*</span>
+							<span class="radius-control"><input name="radiusKm" type="number" min="0.1" max="50" step="0.1" value="1" required><span class="radius-unit">km</span></span>
+							<small>De 0,1 a 50 km. Estime a área que pode ser afetada.</small>
+						</label>
+						<label class="create-field field-wide">Descrição <span class="required-mark">*</span>
+							<textarea name="description" rows="5" maxlength="300" placeholder="O que aconteceu? Há algum perigo imediato? Descreva apenas o necessário." required></textarea>
+						</label>
+					</div>
+					<div class="create-actions">
+						<p class="form-status" id="formStatus" role="status" aria-live="polite">Os alertas desta demonstração ficam salvos neste navegador.</p>
+						<button class="submit-alert" type="submit">Publicar alerta <span aria-hidden="true">→</span></button>
+					</div>
+				</form>
+			</section>
+			<p class="demo-disclaimer">Protótipo demonstrativo · os relatos não são enviados a serviços de emergência.</p>
+		</main>
+		<script src="../scripts/create-alert.js" defer></script>
+	</body>
+</html>
