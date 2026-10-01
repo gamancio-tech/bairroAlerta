@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="pt-BR">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="theme-color" content="#f4f6f6">
+		<meta name="description" content="Crie sua conta no Bairro Alerta.">
+		<title>Criar conta | Bairro Alerta</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="../styles/global.css">
+		<link rel="stylesheet" href="../styles/auth.css">
+	</head>
+	<body class="auth-body">
+		<header class="topbar">
+			<a class="brand" href="../index.html" aria-label="Bairro Alerta, página inicial">
+				<span class="brand-mark" aria-hidden="true">!</span>
+				<span class="brand-copy"><strong>Bairro Alerta</strong><small>Informação que protege</small></span>
+			</a>
+			<a class="auth-back-link" href="../index.html"><span aria-hidden="true">←</span> Voltar para os alertas</a>
+		</header>
+
+		<main class="auth-main auth-main-register">
+			<aside class="auth-intro" aria-label="Sobre o Bairro Alerta">
+				<p class="auth-kicker"><span class="auth-status-dot"></span> Rede comunitária de proteção</p>
+				<h1>Uma comunidade informada responde melhor.</h1>
+				<p class="auth-intro-copy">Crie sua conta para acompanhar e compartilhar alertas com quem está por perto.</p>
+				<div class="auth-intro-rule"></div>
+				<div class="auth-intro-foot"><span class="auth-intro-mark" aria-hidden="true">!</span><span>Vizinhos conectados.<br><strong>Mais preparo para todos.</strong></span></div>
+			</aside>
+
+			<section class="auth-card auth-card-register" aria-labelledby="auth-title">
+				<div class="auth-card-heading">
+					<p class="auth-eyebrow">Faça parte da rede</p>
+					<h2 id="auth-title">Criar sua conta</h2>
+					<p>Leva só um minuto para começar.</p>
+				</div>
+
+				<form class="auth-form" id="registerForm" novalidate>
+					<div class="auth-field-group">
+						<label class="auth-label" for="registerName">Nome</label>
+						<input class="auth-input" id="registerName" name="name" type="text" autocomplete="name" maxlength="80" placeholder="Como podemos chamar você?" required aria-describedby="registerNameError">
+						<p class="auth-field-error" id="registerNameError" aria-live="polite"></p>
+					</div>
+
+					<div class="auth-field-group">
+						<label class="auth-label" for="registerEmail">E-mail</label>
+						<input class="auth-input" id="registerEmail" name="email" type="email" autocomplete="email" inputmode="email" placeholder="voce@exemplo.com" required aria-describedby="registerEmailError">
+						<p class="auth-field-error" id="registerEmailError" aria-live="polite"></p>
+					</div>
+
+					<div class="auth-field-group">
+						<label class="auth-label" for="registerPassword">Senha</label>
+						<div class="auth-password-wrap">
+							<input class="auth-input" id="registerPassword" name="password" type="password" autocomplete="new-password" placeholder="Mínimo de 6 caracteres" required aria-describedby="registerPasswordError">
+							<button class="auth-password-toggle" type="button" data-auth-toggle="registerPassword" aria-label="Mostrar senha" aria-pressed="false">Mostrar</button>
+						</div>
+						<p class="auth-field-error" id="registerPasswordError" aria-live="polite"></p>
+					</div>
+
+					<div class="auth-field-group">
+						<label class="auth-label" for="registerPasswordConfirm">Confirmar senha</label>
+						<div class="auth-password-wrap">
+							<input class="auth-input" id="registerPasswordConfirm" name="passwordConfirm" type="password" autocomplete="new-password" placeholder="Digite a senha novamente" required aria-describedby="registerPasswordConfirmError">
+							<button class="auth-password-toggle" type="button" data-auth-toggle="registerPasswordConfirm" aria-label="Mostrar senha" aria-pressed="false">Mostrar</button>
+						</div>
+						<p class="auth-field-error" id="registerPasswordConfirmError" aria-live="polite"></p>
+					</div>
+
+					<p class="auth-error" id="registerError" role="alert" aria-live="polite"></p>
+					<p class="auth-success" id="registerSuccess" role="status" aria-live="polite"></p>
+					<button class="auth-btn" type="submit"><span class="auth-btn-label">Criar conta</span><span class="auth-btn-arrow" aria-hidden="true">→</span></button>
+				</form>
+
+				<p class="auth-switch">Já tem conta? <a href="login.html">Entrar</a></p>
+			</section>
+		</main>
+		<footer class="auth-page-footer"><span>Em uma emergência, ligue para a Defesa Civil: <a href="tel:199">199</a></span><span>Bairro Alerta · Protótipo comunitário</span></footer>
+
+		<script src="../api/api.js" defer></script>
+		<script src="../scripts/register.js" defer></script>
+	</body>
+</html>
