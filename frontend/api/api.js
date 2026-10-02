@@ -3,7 +3,7 @@
   'use strict';
 
   const API_URL = 'http://localhost:3333/api';
-  const USE_MOCK = true;
+  const USE_MOCK = false;
   const TOKEN_KEY = 'bairro-alerta-token';
   const USER_KEY = 'bairro-alerta-user';
   const ALERTS_KEY = 'bairro-alerta-reports';

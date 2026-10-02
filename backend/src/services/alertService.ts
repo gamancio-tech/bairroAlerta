@@ -2,7 +2,7 @@ import { alertRepository, Alert } from '../repositories/alertRepository';
 
 export class AlertService {
   async create(data: Omit<Alert, 'id' | 'createdAt'>) {
-    if (!data.title || !data.type || !data.description || !data.location || data.radiusKm === undefined || data.mapX === undefined || data.mapY === undefined) {
+    if (!data.title || !data.type || !data.description || !data.location || !data.severity || data.radiusKm === undefined || data.mapX === undefined || data.mapY === undefined) {
       throw new Error('Campos obrigatórios faltando.');
     }
 

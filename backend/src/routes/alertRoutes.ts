@@ -6,5 +6,6 @@ const router = Router();
 
 router.post('/', authMiddleware, alertController.create.bind(alertController));
 router.get('/', alertController.list.bind(alertController));
+router.get('/:id', alertController.getById.bind(alertController));
 
 export default router;

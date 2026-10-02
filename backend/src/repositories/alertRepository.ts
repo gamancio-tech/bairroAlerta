@@ -7,6 +7,7 @@ export interface Alert {
   description: string;
   location: string;
   radiusKm: number;
+  severity: string;
   mapX: number;
   mapY: number;
   userId: string;
@@ -14,6 +15,7 @@ export interface Alert {
 }
 
 export interface AlertWithUser extends Alert {
+  author?: string;
   user?: {
     name: string;
     email: string;
@@ -27,6 +29,7 @@ function attachUser(alert: Alert): AlertWithUser {
   const user = dbUsers.findById(alert.userId);
   return {
     ...alert,
+    author: user?.name || 'Morador da comunidade',
     user: user ? { name: user.name, email: user.email } : undefined,
   };
 }
