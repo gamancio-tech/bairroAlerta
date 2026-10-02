@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" role="img" aria-labelledby="title description">
+  <title id="title">Mapa fictício do Bairro Alerta</title>
+  <desc id="description">Ruas, parque, córrego e bairros imaginários para visualização de alertas.</desc>
+  <rect width="900" height="500" fill="#e8eee4"/>
+  <path d="M-30 110C150 65 225 160 365 120S610 56 930 118M-20 385C120 330 260 420 410 360S720 310 930 370M125-20C90 100 175 180 125 280S115 415 170 530M510-20C465 95 555 180 510 275S500 420 565 520M790-20C730 90 815 205 765 290S760 410 810 520M-20 245C145 220 245 280 360 235S645 205 930 250" fill="none" stroke="#cbd6c7" stroke-width="2"/>
+  <path d="M-30 110C150 65 225 160 365 120S610 56 930 118M-20 385C120 330 260 420 410 360S720 310 930 370M125-20C90 100 175 180 125 280S115 415 170 530M510-20C465 95 555 180 510 275S500 420 565 520M790-20C730 90 815 205 765 290S760 410 810 520M-20 245C145 220 245 280 360 235S645 205 930 250" fill="none" stroke="#fffdf7" stroke-width="13"/>
+  <path d="M-20 300C120 265 165 300 250 315S365 355 450 315 560 230 645 260 760 330 930 280" fill="none" stroke="#9bc9ca" stroke-width="25"/>
+  <path d="M-20 300C120 265 165 300 250 315S365 355 450 315 560 230 645 260 760 330 930 280" fill="none" stroke="#cce5df" stroke-width="14"/>
+  <path d="M270 35Q340 10 390 52L405 115Q380 158 313 148L260 105ZM625 355Q690 322 748 355L760 430Q700 465 638 426Z" fill="#d0e3c9"/>
+  <g fill="#75836e" font-family="sans-serif" font-size="15">
+    <text x="290" y="82" fill="#62805c" font-weight="700">PARQUE DAS ACÁCIAS</text>
+    <text x="270" y="208">VILA DAS FLORES</text>
+    <text x="620" y="185">JARDIM DO VALE</text>
+    <text x="392" y="402">CENTRO</text>
+    <text x="575" y="285" fill="#568c91" font-size="12" font-weight="700">CÓRREGO</text>
+  </g>
+  <path d="M744 375l10 10-10 10-10-10z" fill="#328364" stroke="#fff" stroke-width="4"/>
+</svg>

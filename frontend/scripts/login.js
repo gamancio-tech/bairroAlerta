@@ -1,3 +1,4 @@
+// Login, validação de credenciais e retorno para destinos internos permitidos. 🔌 BACKEND: POST /api/auth/login.
 (function () {
   'use strict';
 
@@ -12,10 +13,17 @@
     const submitButton = form.querySelector('[type="submit"]');
     const submitLabel = submitButton.querySelector('.auth-btn-label');
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const redirectTarget = new URLSearchParams(window.location.search).get('redirect');
+    const safeDestination = redirectTarget === 'criar-alerta' ? 'criar-alerta.html' : '../index.html';
+    if (redirectTarget === 'criar-alerta') {
+      const notice = document.querySelector('#loginRedirectNotice');
+      notice.textContent = 'Entre para reportar uma ocorrência.';
+      notice.hidden = false;
+    }
 
     // 🔌 BACKEND: validar token ao carregar a página, caso exista uma rota de validação disponível.
     if (api.isAuthenticated()) {
-      window.location.replace('../index.html');
+      window.location.replace(safeDestination);
       return;
     }
 
@@ -83,7 +91,7 @@
           email: emailInput.value.trim(),
           password: passwordInput.value
         });
-        window.location.replace('../index.html');
+        window.location.replace(safeDestination);
       } catch (error) {
         generalError.textContent = error.message || 'Não foi possível entrar. Tente novamente.';
         submitButton.disabled = false;

@@ -10,6 +10,7 @@
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
 		<link rel="stylesheet" href="styles/global.css">
+		<link rel="stylesheet" href="styles/alerts.css">
 	</head>
 	<body>
 		<header class="topbar">
@@ -18,22 +19,23 @@
 				<span class="brand-copy"><strong>Bairro Alerta</strong><small>Informação que protege</small></span>
 			</a>
 
-			<nav class="main-nav" aria-label="Navegação principal">
-				<a class="nav-link active" href="#inicio">Início</a>
-				<a class="nav-link" href="#alertas">Alertas</a>
-				<a class="nav-link" href="#mapa">Mapa de riscos</a>
-				<a class="nav-link" href="#orientacoes">Orientações</a>
+			<nav class="main-nav" id="mainNav" aria-label="Navegação principal">
+				<a class="nav-link active" href="#inicio" data-nav-target="inicio">Início</a>
+				<a class="nav-link" href="#alertas" data-nav-target="alertas">Alertas</a>
+				<a class="nav-link" href="#mapa" data-nav-target="mapa">Mapa de riscos</a>
+				<a class="nav-link" href="#orientacoes" data-nav-target="orientacoes">Orientações</a>
 			</nav>
 
 			<div class="top-actions">
-				<a class="location-select" href="#mapa"><span aria-hidden="true">⌖</span> São Paulo, SP <span class="chevron">⌄</span></a>
-				<a class="report-button" href="pages/criar-alerta.html"><span aria-hidden="true">＋</span> Reportar ocorrência</a>
-				<button class="menu-button" type="button" aria-label="Abrir menu"><span></span><span></span><span></span></button>
+				<button class="location-select" type="button" aria-label="Localização: São Paulo, SP" data-toast="Recurso disponível em breve"><span aria-hidden="true">⌖</span> São Paulo, SP <span class="chevron">⌄</span></button>
+				<div class="account-actions" id="accountActions" aria-label="Conta"></div>
+				<a class="report-button" href="pages/criar-alerta.html" data-auth-required><span aria-hidden="true">＋</span> Reportar ocorrência</a>
+				<button class="menu-button" type="button" aria-label="Abrir menu" aria-controls="mainNav" aria-expanded="false"><span></span><span></span><span></span></button>
 			</div>
 		</header>
 
-		<main id="inicio" class="page-shell">
-			<section class="urgent-banner" aria-labelledby="urgent-title">
+		<main class="page-shell">
+			<section class="urgent-banner" id="inicio" aria-labelledby="urgent-title">
 				<div class="urgent-icon" aria-hidden="true">!</div>
 				<div class="urgent-copy">
 					<p class="eyebrow">Alerta comunitário · atualizado há 12 min</p>
@@ -75,51 +77,25 @@
 					</div>
 					<div class="map-frame">
 						<!-- Mapa fictício desenhado localmente: não usa API nem representa localização real. -->
-						<svg class="imaginary-map" viewBox="0 0 900 500" role="img" aria-labelledby="map-image-title map-image-description" preserveAspectRatio="xMidYMid slice">
-							<title id="map-image-title">Mapa ilustrativo do Bairro Alerta</title>
-							<desc id="map-image-description">Mapa fictício com ruas, parque, córrego e áreas demonstrativas de chuva e alagamento.</desc>
-							<rect width="900" height="500" fill="#e8eee4" />
-							<path d="M-30 110 C150 65 225 160 365 120 S610 56 930 118 M-20 385 C120 330 260 420 410 360 S720 310 930 370 M125 -20 C90 100 175 180 125 280 S115 415 170 530 M510 -20 C465 95 555 180 510 275 S500 420 565 520 M790 -20 C730 90 815 205 765 290 S760 410 810 520 M-20 245 C145 220 245 280 360 235 S645 205 930 250" fill="none" stroke="#cbd6c7" stroke-width="2" />
-							<path d="M-30 110 C150 65 225 160 365 120 S610 56 930 118 M-20 385 C120 330 260 420 410 360 S720 310 930 370 M125 -20 C90 100 175 180 125 280 S115 415 170 530 M510 -20 C465 95 555 180 510 275 S500 420 565 520 M790 -20 C730 90 815 205 765 290 S760 410 810 520 M-20 245 C145 220 245 280 360 235 S645 205 930 250" fill="none" stroke="#fffdf7" stroke-width="13" />
-							<path d="M-20 300 C120 265 165 300 250 315 S365 355 450 315 S560 230 645 260 S760 330 930 280" fill="none" stroke="#9bc9ca" stroke-width="25" />
-							<path d="M-20 300 C120 265 165 300 250 315 S365 355 450 315 S560 230 645 260 S760 330 930 280" fill="none" stroke="#cce5df" stroke-width="14" />
-							<path d="M270 35 Q340 10 390 52 L405 115 Q380 158 313 148 L260 105Z M625 355 Q690 322 748 355 L760 430 Q700 465 638 426Z" fill="#d0e3c9" />
-							<text x="290" y="82" fill="#62805c" font-size="15" font-family="sans-serif" font-weight="700">PARQUE DAS ACÁCIAS</text>
-							<text x="270" y="208" fill="#75836e" font-size="15" font-family="sans-serif">VILA DAS FLORES</text>
-							<text x="620" y="185" fill="#75836e" font-size="15" font-family="sans-serif">JARDIM DO VALE</text>
-							<text x="392" y="402" fill="#75836e" font-size="15" font-family="sans-serif">CENTRO</text>
-							<text x="575" y="285" fill="#568c91" font-size="12" font-family="sans-serif" font-weight="700">CÓRREGO</text>
-							<circle class="map-hazard map-hazard-flood" cx="600" cy="265" r="62" />
-							<circle class="map-hazard map-hazard-rain" cx="355" cy="180" r="49" />
-							<circle cx="600" cy="265" r="8" fill="#ce3936" stroke="#fff" stroke-width="4" />
-							<circle cx="355" cy="180" r="7" fill="#d99a38" stroke="#fff" stroke-width="4" />
-							<path d="M744 375l10 10-10 10-10-10z" fill="#328364" stroke="#fff" stroke-width="4" />
-						</svg>
-						<div class="map-markers" id="mapMarkers" aria-hidden="true"></div>
+						<img class="imaginary-map" src="assets/mapa-bairro.svg" alt="Mapa fictício com ruas, parque, córrego e bairros">
+						<div class="map-markers" id="mapMarkers" aria-label="Alertas marcados no mapa"></div>
 						<div class="map-legend" aria-label="Legenda do mapa">
-							<span><i class="legend-dot red"></i>Alagamento</span>
-							<span><i class="legend-dot amber"></i>Chuva intensa</span>
-							<span><i class="legend-dot green"></i>Ponto seguro</span>
+							<span><i class="legend-dot severity-low"></i>Baixa</span>
+							<span><i class="legend-dot severity-medium"></i>Média</span>
+							<span><i class="legend-dot severity-high"></i>Alta</span>
+							<span><i class="legend-dot severity-critical"></i>Crítica</span>
 						</div>
-						<div class="map-callout"><span class="callout-icon" aria-hidden="true">⌂</span><div><strong>Abrigo mais próximo</strong><small>CEU Tiquatira · 1,2 km</small><a href="#apoio">Ver rota <span aria-hidden="true">→</span></a></div></div>
+						<div class="map-callout"><span class="callout-icon" aria-hidden="true">⌂</span><div><strong>Abrigo mais próximo</strong><small>Escola do Bairro · 1,2 km</small><button type="button" data-toast="Recurso disponível em breve">Ver rota <span aria-hidden="true">→</span></button></div></div>
 					</div>
 					<div class="map-footer"><span><i class="live-dot"></i> Dados demonstrativos</span><span>Região fictícia · sem geolocalização real</span></div>
 				</section>
 
 				<aside id="alertas" class="alerts-panel" aria-labelledby="alerts-title">
-					<div class="section-heading alerts-heading"><div><p class="panel-kicker">Da comunidade</p><h2 id="alerts-title">Alertas recentes</h2></div><a class="view-all" href="#alertas">Ver todos <span aria-hidden="true">→</span></a></div>
-					<div class="alert-filters" role="tablist" aria-label="Filtrar alertas por tipo">
-						<button class="filter-active" type="button" role="tab" aria-selected="true" data-filter="todos">Todos <span class="filter-count">3</span></button>
-						<button type="button" role="tab" aria-selected="false" data-filter="alagamento">Alagamentos</button>
-						<button type="button" role="tab" aria-selected="false" data-filter="chuva">Chuvas</button>
-					</div>
-					<!-- BACKEND: substituir alertas demonstrativos pela resposta GET /api/alerts. -->
-					<div class="alert-list">
-						<article class="alert-item alert-red" data-category="alagamento"><span class="alert-sign" aria-hidden="true">!</span><div class="alert-details"><div class="alert-meta"><strong>ALERTA ALTO</strong><time>12 min</time></div><h3>Água subindo na rua do Córrego</h3><p>Vila das Flores · Raio 1,5 km · 3 confirmações</p></div><span class="alert-arrow" aria-hidden="true">›</span></article>
-						<article class="alert-item alert-amber" data-category="chuva"><span class="alert-sign" aria-hidden="true">!</span><div class="alert-details"><div class="alert-meta"><strong>ATENÇÃO</strong><time>38 min</time></div><h3>Chuva forte e baixa visibilidade</h3><p>Jardim do Vale · Raio 2 km · 2 confirmações</p></div><span class="alert-arrow" aria-hidden="true">›</span></article>
-						<article class="alert-item alert-blue" data-category="outros"><span class="alert-sign" aria-hidden="true">i</span><div class="alert-details"><div class="alert-meta"><strong>INFORMAÇÃO</strong><time>1 h</time></div><h3>Abrigo comunitário aberto</h3><p>Centro · atualizado há 10 min</p></div><span class="alert-arrow" aria-hidden="true">›</span></article>
-					</div>
-					<a class="all-alerts-button" href="#alertas">Acompanhar alertas da região <span aria-hidden="true">→</span></a>
+					<div class="section-heading alerts-heading"><div><p class="panel-kicker">Da comunidade</p><h2 id="alerts-title">Alertas recentes <span class="active-alert-count" id="activeAlertCount" aria-live="polite">0</span></h2></div><button class="view-all" type="button" data-select-all>Ver todos <span aria-hidden="true">→</span></button></div>
+					<div class="alert-filters" id="alertTabs" role="tablist" aria-label="Filtrar alertas por tipo"></div>
+					<div class="alert-list" id="alertList" aria-live="polite" aria-busy="true"><p class="alert-loading">Carregando alertas...</p></div>
+					<div class="alert-empty" id="alertEmpty" hidden><span aria-hidden="true">⌁</span><p>Nenhum alerta ativo nesta categoria</p><a class="report-cta" href="pages/criar-alerta.html" data-auth-required>Reportar ocorrência</a></div>
+					<div class="alert-load-error" id="alertLoadError" hidden><p>Não foi possível carregar os alertas.</p><button class="all-alerts-button" type="button" data-retry-alerts>Tentar novamente</button></div>
 				</aside>
 			</section>
 
@@ -132,7 +108,7 @@
 				<article class="report-panel">
 					<div class="bottom-heading"><span class="report-symbol" aria-hidden="true">＋</span><div><p class="panel-kicker">Ajude sua comunidade</p><h2>Viu uma situação de risco?</h2></div></div>
 					<p class="guide-copy">Seu relato ajuda vizinhos a tomar decisões com mais segurança.</p>
-					<a class="report-cta" href="pages/criar-alerta.html">Reportar ocorrência <span aria-hidden="true">→</span></a>
+					<a class="report-cta" href="pages/criar-alerta.html" data-auth-required>Reportar ocorrência <span aria-hidden="true">→</span></a>
 				</article>
 				<article id="apoio" class="help-panel">
 					<span class="help-symbol" aria-hidden="true">♡</span><div><p class="panel-kicker">Em uma emergência</p><h2>Defesa Civil</h2><p>199 <span class="help-divider">·</span> Bombeiros 193</p></div>
@@ -141,6 +117,24 @@
 
 			<footer class="site-footer"><span><span class="footer-mark" aria-hidden="true">!</span> Bairro Alerta</span><span>Informação comunitária. Em emergências, ligue 199 ou 193.</span><a href="#inicio">Voltar ao início ↑</a></footer>
 		</main>
+		<dialog class="alert-detail-dialog" id="alertDetailDialog" aria-labelledby="detailTitle">
+			<article class="alert-detail-card">
+				<button class="alert-detail-close" type="button" aria-label="Fechar detalhes">×</button>
+				<p class="panel-kicker" id="detailType"></p>
+				<h2 id="detailTitle"></h2>
+				<span class="detail-severity" id="detailSeverity"></span>
+				<p class="detail-description" id="detailDescription"></p>
+				<dl class="detail-facts">
+					<div><dt>Localização</dt><dd id="detailLocation"></dd></div>
+					<div><dt>Raio de impacto</dt><dd id="detailRadius"></dd></div>
+					<div><dt>Publicado</dt><dd id="detailDate"></dd></div>
+					<div><dt>Autor</dt><dd id="detailAuthor"></dd></div>
+				</dl>
+				<p class="detail-relative" id="detailRelative"></p>
+			</article>
+		</dialog>
+		<div class="site-toast" id="siteToast" role="status" aria-live="polite"></div>
+		<script src="api/api.js" defer></script>
 		<script src="scripts/alerts.js" defer></script>
 	</body>
 </html>

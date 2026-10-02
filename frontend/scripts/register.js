@@ -1,3 +1,4 @@
+// Cadastro com validação de campos e confirmação de senha. 🔌 BACKEND: POST /api/auth/register.
 (function () {
   'use strict';
 

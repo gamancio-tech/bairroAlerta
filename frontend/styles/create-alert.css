@@ -46,3 +46,25 @@
   .submit-alert { width: 100%; }
   .back-link { font-size: 10px; }
 }
+
+.create-field > label, .position-label { color: #435158; font-size: 11px; font-weight: 700; }
+.form-field-error { min-height: 0; margin: -2px 0 0; color: var(--red); font-size: 10px; font-weight: 500; line-height: 1.4; }
+.form-field-error:empty { display: none; }
+.create-field [aria-invalid="true"] { border-color: var(--red); }
+.create-author { margin: -10px 0 17px; color: var(--green); font-size: 11px; font-weight: 700; }
+.radius-slider { width: 100%; height: 20px; margin: 3px 0 0; accent-color: var(--red); cursor: pointer; }
+.radius-slider:focus-visible { outline: 3px solid #25826055; outline-offset: 2px; }
+.description-meta { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.description-meta > span { flex: 0 0 auto; color: var(--muted); font-size: 9px; font-weight: 500; }
+.position-map { position: relative; display: block; width: 100%; aspect-ratio: 1.8; overflow: hidden; border: 1px solid #d8e3dd; border-radius: 7px; padding: 0; background: #e8ede6; cursor: crosshair; }
+.position-map img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+.position-map:focus-visible { outline: 3px solid #2582608a; outline-offset: 2px; }
+.position-preview { position: absolute; z-index: 1; transform: translate(-50%, -50%); border: 2px solid var(--preview-color, var(--amber)); border-radius: 50%; background: color-mix(in srgb, var(--preview-color, var(--amber)) 20%, transparent); pointer-events: none; transition: width .12s ease, height .12s ease, background-color .12s ease; }
+.position-pin { position: absolute; z-index: 2; display: grid; width: 22px; height: 22px; transform: translate(-50%, -50%); place-items: center; border: 3px solid #fff; border-radius: 50%; background: var(--preview-color, var(--amber)); color: #fff; font-size: 8px; box-shadow: 0 2px 7px #18252c55; pointer-events: none; }
+.position-field > small { color: var(--muted); font-size: 10px; font-weight: 400; }
+.create-actions .form-status.is-error { color: var(--red); }
+
+@media (max-width: 600px) {
+  .position-map { aspect-ratio: 1.5; }
+  .create-field > label, .position-label { font-size: 10px; }
+}
