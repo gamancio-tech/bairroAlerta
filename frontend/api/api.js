@@ -3,7 +3,7 @@
   'use strict';
 
   // 🔌 BACKEND URL: Em localhost usa a porta 3333; no Vercel/Produção conecta à URL do Render
-  const PRODUCTION_API_URL = 'https://bairroalerta.onrender.com'; // Insira aqui a URL gerada no Render
+  const PRODUCTION_API_URL = 'https://bairroalerta.onrender.com/api'; // URL gerada no Render + /api
   const isLocalhost = Boolean(
     window.location.hostname === 'localhost' ||
     window.location.hostname === '127.0.0.1' ||

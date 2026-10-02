@@ -1,7 +1,9 @@
-import bcrypt from 'bcryptjs';
+import bcrypt from 'bcrypt';
+import {randomBytes} from 'crypto';
 
 export const hashPassword = async (password: string) => {
-  return await bcrypt.hash(password, 10);
+  const salt = randomBytes(16).toString('hex');
+  return await bcrypt.hash(password + salt, 10);
 };
 
 export const comparePassword = async (password: string, hash: string) => {
