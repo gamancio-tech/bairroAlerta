@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="pt-BR">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="theme-color" content="#f4f6f6">
+		<meta name="description" content="Entre na sua conta do Bairro Alerta.">
+		<title>Entrar | Bairro Alerta</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="../styles/global.css">
+		<link rel="stylesheet" href="../styles/auth.css">
+	</head>
+	<body class="auth-body">
+		<header class="topbar">
+			<a class="brand" href="../index.html" aria-label="Bairro Alerta, página inicial">
+				<span class="brand-mark" aria-hidden="true">!</span>
+				<span class="brand-copy"><strong>Bairro Alerta</strong><small>Informação que protege</small></span>
+			</a>
+			<a class="auth-back-link" href="../index.html"><span aria-hidden="true">←</span> Voltar para os alertas</a>
+		</header>
+
+		<main class="auth-main">
+			<aside class="auth-intro" aria-label="Sobre o Bairro Alerta">
+				<p class="auth-kicker"><span class="auth-status-dot"></span> Rede comunitária de proteção</p>
+				<h1>Quando a vizinhança sabe, todo mundo se protege.</h1>
+				<p class="auth-intro-copy">Acesse os alertas da sua região e ajude sua comunidade a se preparar.</p>
+				<div class="auth-intro-rule"></div>
+				<div class="auth-intro-foot"><span class="auth-intro-mark" aria-hidden="true">!</span><span>Informação local.<br><strong>Decisões mais seguras.</strong></span></div>
+			</aside>
+
+			<section class="auth-card" aria-labelledby="auth-title">
+				<div class="auth-card-heading">
+					<p class="auth-eyebrow">Que bom ter você por aqui</p>
+					<h2 id="auth-title">Entre na sua conta</h2>
+					<p>Acompanhe o que está acontecendo perto de você.</p>
+				</div>
+				<p class="auth-demo-note">Modo demonstração: use qualquer e-mail válido e uma senha diferente de 000000.</p>
+				<p class="auth-notice" id="loginRedirectNotice" role="status" aria-live="polite" hidden></p>
+
+				<form class="auth-form" id="loginForm" novalidate>
+					<div class="auth-field-group">
+						<label class="auth-label" for="loginEmail">E-mail</label>
+						<input class="auth-input" id="loginEmail" name="email" type="email" autocomplete="email" inputmode="email" placeholder="voce@exemplo.com" required aria-describedby="loginEmailError">
+						<p class="auth-field-error" id="loginEmailError" aria-live="polite"></p>
+					</div>
+
+					<div class="auth-field-group">
+						<label class="auth-label" for="loginPassword">Senha</label>
+						<div class="auth-password-wrap">
+							<input class="auth-input" id="loginPassword" name="password" type="password" autocomplete="current-password" placeholder="Sua senha" required aria-describedby="loginPasswordError">
+							<button class="auth-password-toggle" type="button" data-auth-toggle="loginPassword" aria-label="Mostrar senha" aria-pressed="false">Mostrar</button>
+						</div>
+						<p class="auth-field-error" id="loginPasswordError" aria-live="polite"></p>
+					</div>
+
+					<p class="auth-error" id="loginError" role="alert" aria-live="polite"></p>
+					<button class="auth-btn" type="submit"><span class="auth-btn-label">Entrar</span><span class="auth-btn-arrow" aria-hidden="true">→</span></button>
+				</form>
+
+				<p class="auth-switch">Não tem conta? <a href="cadastro.html">Cadastre-se</a></p>
+			</section>
+		</main>
+		<footer class="auth-page-footer"><span>Em uma emergência, ligue para a Defesa Civil: <a href="tel:199">199</a></span><span>Bairro Alerta · Protótipo comunitário</span></footer>
+
+		<script src="../api/api.js" defer></script>
+		<script src="../scripts/login.js" defer></script>
+	</body>
+</html>

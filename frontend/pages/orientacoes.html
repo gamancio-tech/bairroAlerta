@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4f6f6">
+  <meta name="description" content="Orientações de segurança para ocorrências climáticas.">
+  <title>Orientações de segurança | Bairro Alerta</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles/global.css">
+  <link rel="stylesheet" href="../styles/guidance.css">
+</head>
+<body>
+  <header class="topbar tips-header">
+    <a class="brand" href="../index.html" aria-label="Bairro Alerta, página inicial"><span class="brand-mark" aria-hidden="true">!</span><span class="brand-copy"><strong>Bairro Alerta</strong><small>Informação que protege</small></span></a>
+    <nav class="main-nav tips-nav" id="tipsNav" aria-label="Navegação principal">
+      <a class="nav-link" href="../index.html#inicio">Início</a><a class="nav-link" href="../index.html#alertas">Alertas</a><a class="nav-link" href="../index.html#mapa">Mapa de riscos</a><a class="nav-link active" href="orientacoes.html" aria-current="page">Orientações</a>
+    </nav>
+    <div class="top-actions tips-actions"><button class="location-select" type="button" data-tips-toast>⌖ São Paulo, SP</button><div class="tips-account" id="tipsAccount"></div><a class="report-button" href="criar-alerta.html" data-tips-report>＋ Reportar ocorrência</a><button class="menu-button tips-menu" id="tipsMenu" type="button" aria-label="Abrir menu" aria-controls="tipsNav" aria-expanded="false"><span></span><span></span><span></span></button></div>
+  </header>
+  <main class="tips-main">
+    <section class="tips-intro"><p class="tips-kicker">Segurança comunitária</p><h1>Orientações de segurança</h1><p>Saiba o que fazer antes, durante e depois de cada tipo de ocorrência.</p></section>
+    <section class="tips-emergency" aria-label="Contatos de emergência"><strong>EMERGÊNCIA</strong><a href="tel:199">Defesa Civil <b>199</b></a><a href="tel:193">Bombeiros <b>193</b></a><a href="tel:192">SAMU <b>192</b></a><a href="tel:190">Polícia <b>190</b></a></section>
+    <div class="tips-tabs" id="guidanceTabs" role="tablist" aria-label="Orientações por tipo de ocorrência"></div>
+    <section class="tips-panel" id="guidancePanel" role="tabpanel" aria-live="polite"></section>
+    <div class="tips-support"><section class="tips-kit" id="guidanceKit"></section><section class="tips-family" id="familyPlan"></section></div>
+    <p class="tips-disclaimer">Estas orientações são gerais e não substituem as instruções da Defesa Civil e dos Bombeiros. Em caso de risco imediato, siga as ordens das autoridades e ligue 199 ou 193.</p>
+    <footer class="tips-footer"><a class="brand" href="../index.html"><span class="footer-mark" aria-hidden="true">!</span><strong>Bairro Alerta</strong></a><span>Informação comunitária. Em emergências, ligue 199 ou 193.</span><a href="../index.html">Voltar aos alertas ↑</a></footer>
+  </main>
+  <div class="tips-toast" id="tipsToast" role="status" aria-live="polite"></div>
+  <script src="../api/api.js" defer></script>
+  <script src="../scripts/guidance-data.js" defer></script>
+  <script src="../scripts/guidance.js" defer></script>
+</body>
+</html>

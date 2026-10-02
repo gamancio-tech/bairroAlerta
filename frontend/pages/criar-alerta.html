@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="pt-BR">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="theme-color" content="#f6f7f8">
+		<meta name="description" content="Registre um alerta comunitário para sua região.">
+		<title>Reportar ocorrência | Bairro Alerta</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="../styles/global.css">
+		<link rel="stylesheet" href="../styles/create-alert.css">
+	</head>
+	<body>
+		<header class="topbar">
+			<a class="brand" href="../index.html" aria-label="Voltar ao Bairro Alerta">
+				<span class="brand-mark" aria-hidden="true">!</span>
+				<span class="brand-copy"><strong>Bairro Alerta</strong><small>Informação que protege</small></span>
+			</a>
+			<a class="back-link" href="../index.html"><span aria-hidden="true">←</span> Voltar aos alertas</a>
+		</header>
+
+		<main class="create-shell">
+			<section class="create-intro" aria-labelledby="create-title">
+				<p class="eyebrow">Relato da comunidade</p>
+				<h1 id="create-title">Reportar ocorrência</h1>
+				<p>Compartilhe o que está acontecendo para que as pessoas próximas possam se proteger.</p>
+			</section>
+
+			<section class="create-form-panel" aria-label="Formulário de ocorrência">
+				<div class="form-note"><span aria-hidden="true">i</span><p>Não inclua dados pessoais. Em risco imediato, ligue para a Defesa Civil no <a href="tel:199">199</a>.</p></div>
+				<p class="create-author" id="createAuthor" hidden></p>
+				<!-- BACKEND: conectar este formulário ao POST /api/alerts; rota requer autenticação JWT. -->
+				<form id="createAlertForm" novalidate>
+					<div class="create-form-grid">
+						<div class="create-field field-wide">
+							<label for="alertTitle">Título do alerta <span class="required-mark">*</span></label>
+							<input id="alertTitle" name="title" type="text" maxlength="70" placeholder="Ex.: Água subindo perto da ponte" required aria-describedby="titleError">
+							<p class="form-field-error" id="titleError" aria-live="polite"></p>
+						</div>
+						<div class="create-field">
+							<label for="alertType">Tipo de ocorrência <span class="required-mark">*</span></label>
+							<select id="alertType" name="type" required aria-describedby="typeError"><option value="">Selecione o tipo</option></select>
+							<p class="form-field-error" id="typeError" aria-live="polite"></p>
+						</div>
+						<div class="create-field">
+							<label for="alertSeverity">Gravidade <span class="required-mark">*</span></label>
+							<select id="alertSeverity" name="severity" required aria-describedby="severityError"><option value="">Selecione a gravidade</option></select>
+							<p class="form-field-error" id="severityError" aria-live="polite"></p>
+						</div>
+						<div class="create-field field-wide">
+							<label for="alertLocation">Bairro, rua ou referência <span class="required-mark">*</span></label>
+							<input id="alertLocation" name="location" type="text" maxlength="80" placeholder="Ex.: Vila das Flores, perto do córrego" required aria-describedby="locationError">
+							<p class="form-field-error" id="locationError" aria-live="polite"></p>
+						</div>
+						<div class="create-field radius-field">
+							<label for="alertRadius">Raio estimado de impacto <span class="required-mark">*</span></label>
+							<span class="radius-control"><input id="alertRadius" name="radiusKm" type="number" min="0.1" max="50" step="0.1" value="1" required aria-describedby="radiusHelp radiusError"><span class="radius-unit">km</span></span>
+							<input class="radius-slider" id="radiusSlider" type="range" min="0.1" max="10" step="0.1" value="1" aria-label="Ajustar raio estimado até 10 quilômetros">
+							<small id="radiusHelp">De 0,1 a 50 km. O controle deslizante vai até 10 km.</small>
+							<p class="form-field-error" id="radiusError" aria-live="polite"></p>
+						</div>
+						<div class="create-field field-wide">
+							<label for="alertDescription">Descrição <span class="required-mark">*</span></label>
+							<textarea id="alertDescription" name="description" rows="5" maxlength="300" placeholder="O que aconteceu? Há algum perigo imediato? Descreva apenas o necessário." required aria-describedby="descriptionCount descriptionError"></textarea>
+							<div class="description-meta"><p class="form-field-error" id="descriptionError" aria-live="polite"></p><span id="descriptionCount">0/300</span></div>
+						</div>
+						<div class="create-field field-wide position-field">
+							<span class="position-label">Posição aproximada no mapa</span>
+							<button class="position-map" id="positionMap" type="button" aria-label="Mapa fictício. Clique ou use as setas para posicionar o alerta." aria-describedby="mapPositionStatus">
+								<img src="../assets/mapa-bairro.svg" alt="" draggable="false">
+								<span class="position-preview" id="positionPreview" aria-hidden="true"></span>
+								<span class="position-pin" id="positionPin" aria-hidden="true">●</span>
+							</button>
+							<small id="mapPositionStatus" aria-live="polite">Posição inicial no centro. Clique no mapa para ajustar.</small>
+						</div>
+					</div>
+					<div class="create-actions">
+						<p class="form-status" id="formStatus" role="status" aria-live="polite">Os alertas desta demonstração ficam salvos neste navegador.</p>
+						<button class="submit-alert" type="submit">Publicar alerta <span aria-hidden="true">→</span></button>
+					</div>
+				</form>
+			</section>
+			<p class="demo-disclaimer">Protótipo demonstrativo · os relatos não são enviados a serviços de emergência.</p>
+		</main>
+		<script src="../api/api.js" defer></script>
+		<script src="../scripts/create-alert.js" defer></script>
+	</body>
+</html>

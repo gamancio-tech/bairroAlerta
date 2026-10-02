@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="pt-BR">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="theme-color" content="#f6f7f8">
+		<meta name="description" content="Alertas comunitários e informações de segurança para sua região.">
+		<title>Bairro Alerta | Segurança da sua região</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="styles/global.css">
+		<link rel="stylesheet" href="styles/alerts.css">
+	</head>
+	<body>
+		<header class="topbar">
+			<a class="brand" href="#inicio" aria-label="Bairro Alerta, início">
+				<span class="brand-mark" aria-hidden="true">!</span>
+				<span class="brand-copy"><strong>Bairro Alerta</strong><small>Informação que protege</small></span>
+			</a>
+
+			<nav class="main-nav" id="mainNav" aria-label="Navegação principal">
+				<a class="nav-link active" href="#inicio" data-nav-target="inicio">Início</a>
+				<a class="nav-link" href="#alertas" data-nav-target="alertas">Alertas</a>
+				<a class="nav-link" href="#mapa" data-nav-target="mapa">Mapa de riscos</a>
+				<a class="nav-link" href="pages/orientacoes.html" data-nav-target="orientacoes">Orientações</a>
+			</nav>
+
+			<div class="top-actions">
+				<button class="location-select" type="button" aria-label="Localização: São Paulo, SP" data-toast="Recurso disponível em breve"><span aria-hidden="true">⌖</span> São Paulo, SP <span class="chevron">⌄</span></button>
+				<div class="account-actions" id="accountActions" aria-label="Conta"></div>
+				<a class="report-button" href="pages/criar-alerta.html" data-auth-required><span aria-hidden="true">＋</span> Reportar ocorrência</a>
+				<button class="menu-button" type="button" aria-label="Abrir menu" aria-controls="mainNav" aria-expanded="false"><span></span><span></span><span></span></button>
+			</div>
+		</header>
+
+		<main class="page-shell">
+			<section class="urgent-banner" id="inicio" aria-labelledby="urgent-title">
+				<div class="urgent-icon" aria-hidden="true">!</div>
+				<div class="urgent-copy">
+					<p class="eyebrow">Alerta comunitário · atualizado há 12 min</p>
+					<h1 id="urgent-title">Chuva intensa e risco de alagamento</h1>
+					<p>Moradores relatam água subindo na região do córrego. Evite vias baixas e acompanhe as atualizações.</p>
+				</div>
+				<div class="urgent-level"><span class="level-pulse"></span><span><strong>Risco alto</strong><small>Zona Leste · São Paulo</small></span></div>
+				<a class="urgent-link" href="#alertas">Ver alerta <span aria-hidden="true">→</span></a>
+			</section>
+
+			<section class="overview-grid" aria-label="Condições da região">
+				<article class="weather-panel">
+					<div class="panel-heading"><span class="sun-icon" aria-hidden="true">☼</span><div><p class="panel-kicker">Agora na sua região</p><h2>Tempo instável</h2></div></div>
+					<div class="weather-reading"><strong>27°</strong><div><span>Chuva moderada</span><small>Sensação de 29° · Umidade 84%</small></div></div>
+					<div class="weather-foot"><span class="rain-dots" aria-hidden="true">•••</span> Pancadas previstas para as próximas horas</div>
+				</article>
+
+				<article class="risk-panel">
+					<div class="panel-heading"><span class="panel-icon risk-symbol" aria-hidden="true">⌁</span><div><p class="panel-kicker">Monitoramento local</p><h2>Riscos ativos</h2></div></div>
+					<ul class="risk-list">
+						<li><span class="risk-name"><i class="risk-dot water"></i>Alagamento</span><strong class="risk-high">Alto</strong></li>
+						<li><span class="risk-name"><i class="risk-dot rain"></i>Chuva forte</span><strong class="risk-medium">Atenção</strong></li>
+						<li><span class="risk-name"><i class="risk-dot wind"></i>Deslizamento</span><strong class="risk-low">Baixo</strong></li>
+					</ul>
+				</article>
+
+				<article class="shelter-panel">
+					<div class="panel-heading"><span class="shelter-icon" aria-hidden="true">⌂</span><div><p class="panel-kicker">Apoio por perto</p><h2>Pontos seguros</h2></div></div>
+					<p class="shelter-description">Encontre abrigos e locais de apoio próximos de você.</p>
+					<a class="text-link" href="#mapa">Ver pontos no mapa <span aria-hidden="true">→</span></a>
+				</article>
+			</section>
+
+			<section class="content-grid">
+				<section id="mapa" class="map-panel" aria-labelledby="map-title">
+					<div class="section-heading map-heading">
+						<div><p class="panel-kicker">Acompanhe sua vizinhança</p><h2 id="map-title">Mapa de riscos</h2></div>
+						<span class="map-label">MAPA ILUSTRATIVO</span>
+					</div>
+					<div class="map-frame">
+						<!-- Mapa fictício desenhado localmente: não usa API nem representa localização real. -->
+						<img class="imaginary-map" src="assets/mapa-bairro.svg" alt="Mapa fictício com ruas, parque, córrego e bairros">
+						<div class="map-markers" id="mapMarkers" aria-label="Alertas marcados no mapa"></div>
+						<div class="map-legend" aria-label="Legenda do mapa">
+							<span><i class="legend-dot severity-low"></i>Baixa</span>
+							<span><i class="legend-dot severity-medium"></i>Média</span>
+							<span><i class="legend-dot severity-high"></i>Alta</span>
+							<span><i class="legend-dot severity-critical"></i>Crítica</span>
+						</div>
+						<div class="map-callout"><span class="callout-icon" aria-hidden="true">⌂</span><div><strong>Abrigo mais próximo</strong><small>Escola do Bairro · 1,2 km</small><button type="button" data-toast="Recurso disponível em breve">Ver rota <span aria-hidden="true">→</span></button></div></div>
+					</div>
+					<div class="map-footer"><span><i class="live-dot"></i> Dados demonstrativos</span><span>Região fictícia · sem geolocalização real</span></div>
+				</section>
+
+				<aside id="alertas" class="alerts-panel" aria-labelledby="alerts-title">
+					<div class="section-heading alerts-heading"><div><p class="panel-kicker">Da comunidade</p><h2 id="alerts-title">Alertas recentes <span class="active-alert-count" id="activeAlertCount" aria-live="polite">0</span></h2></div><button class="view-all" type="button" data-select-all>Ver todos <span aria-hidden="true">→</span></button></div>
+					<div class="alert-filters" id="alertTabs" role="tablist" aria-label="Filtrar alertas por tipo"></div>
+					<div class="alert-list" id="alertList" aria-live="polite" aria-busy="true"><p class="alert-loading">Carregando alertas...</p></div>
+					<div class="alert-empty" id="alertEmpty" hidden><span aria-hidden="true">⌁</span><p>Nenhum alerta ativo nesta categoria</p><a class="report-cta" href="pages/criar-alerta.html" data-auth-required>Reportar ocorrência</a></div>
+					<div class="alert-load-error" id="alertLoadError" hidden><p>Não foi possível carregar os alertas.</p><button class="all-alerts-button" type="button" data-retry-alerts>Tentar novamente</button></div>
+				</aside>
+			</section>
+
+			<section class="bottom-grid">
+				<article id="orientacoes" class="guide-panel">
+					<div class="bottom-heading"><span class="guide-symbol" aria-hidden="true">＋</span><div><p class="panel-kicker">Prepare-se</p><h2>Em caso de alagamento</h2></div><a href="pages/orientacoes.html?tipo=ALAGAMENTO" aria-label="Mais orientações">→</a></div>
+					<p class="guide-copy">A água pode subir rapidamente. Proteja-se e ajude quem está por perto.</p>
+					<div class="guide-steps"><span><b>01</b> Evite atravessar áreas alagadas</span><span><b>02</b> Desligue a energia se a água entrar</span><span><b>03</b> Ligue 199 em situação de risco</span></div>
+				</article>
+				<article class="report-panel">
+					<div class="bottom-heading"><span class="report-symbol" aria-hidden="true">＋</span><div><p class="panel-kicker">Ajude sua comunidade</p><h2>Viu uma situação de risco?</h2></div></div>
+					<p class="guide-copy">Seu relato ajuda vizinhos a tomar decisões com mais segurança.</p>
+					<a class="report-cta" href="pages/criar-alerta.html" data-auth-required>Reportar ocorrência <span aria-hidden="true">→</span></a>
+				</article>
+				<article id="apoio" class="help-panel">
+					<span class="help-symbol" aria-hidden="true">♡</span><div><p class="panel-kicker">Em uma emergência</p><h2>Defesa Civil</h2><p>199 <span class="help-divider">·</span> Bombeiros 193</p></div>
+				</article>
+			</section>
+
+			<footer class="site-footer"><span><span class="footer-mark" aria-hidden="true">!</span> Bairro Alerta</span><span>Informação comunitária. Em emergências, ligue 199 ou 193.</span><a href="#inicio">Voltar ao início ↑</a></footer>
+		</main>
+		<dialog class="alert-detail-dialog" id="alertDetailDialog" aria-labelledby="detailTitle">
+			<article class="alert-detail-card">
+				<button class="alert-detail-close" type="button" aria-label="Fechar detalhes">×</button>
+				<p class="panel-kicker" id="detailType"></p>
+				<h2 id="detailTitle"></h2>
+				<span class="detail-severity" id="detailSeverity"></span>
+				<p class="detail-description" id="detailDescription"></p>
+				<dl class="detail-facts">
+					<div><dt>Localização</dt><dd id="detailLocation"></dd></div>
+					<div><dt>Raio de impacto</dt><dd id="detailRadius"></dd></div>
+					<div><dt>Publicado</dt><dd id="detailDate"></dd></div>
+					<div><dt>Autor</dt><dd id="detailAuthor"></dd></div>
+				</dl>
+				<p class="detail-relative" id="detailRelative"></p>
+			</article>
+		</dialog>
+		<div class="site-toast" id="siteToast" role="status" aria-live="polite"></div>
+		<script src="api/api.js" defer></script>
+		<script src="scripts/alerts.js" defer></script>
+	</body>
+</html>
