@@ -8,6 +8,8 @@
     "build": "npx prisma generate && npx tsc",
     "start": "node dist/server.js",
     "postinstall": "prisma generate",
+    "db:push": "prisma db push",
+    "seed": "ts-node --transpile-only prisma/seed.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

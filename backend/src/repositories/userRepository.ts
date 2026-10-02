@@ -1,26 +1,29 @@
-import { JsonDatabase } from '../config/jsonDatabase';
+import { prisma } from '../config/prisma';
+import { User } from '@prisma/client';
 
-export interface User {
-  id: string;
-  name: string;
-  email: string;
-  password: string;
-  createdAt: string;
-}
-
-const db = new JsonDatabase<User>('users');
+export { User };
 
 export class UserRepository {
   async create(data: Omit<User, 'id' | 'createdAt'>): Promise<User> {
-    return db.create(data);
+    return prisma.user.create({
+      data: {
+        name: data.name,
+        email: data.email,
+        password: data.password,
+      },
+    });
   }
 
   async findByEmail(email: string): Promise<User | null> {
-    return db.findBy('email', email);
+    return prisma.user.findUnique({
+      where: { email },
+    });
   }
 
   async findById(id: string): Promise<User | null> {
-    return db.findById(id);
+    return prisma.user.findUnique({
+      where: { id },
+    });
   }
 }
 

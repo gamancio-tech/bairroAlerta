@@ -1,18 +1,7 @@
-import { JsonDatabase } from '../config/jsonDatabase';
+import { prisma } from '../config/prisma';
+import { Alert } from '@prisma/client';
 
-export interface Alert {
-  id: string;
-  title: string;
-  type: string;
-  description: string;
-  location: string;
-  radiusKm: number;
-  severity: string;
-  mapX: number;
-  mapY: number;
-  userId: string;
-  createdAt: string;
-}
+export { Alert };
 
 export interface AlertWithUser extends Alert {
   author?: string;
@@ -22,35 +11,76 @@ export interface AlertWithUser extends Alert {
   };
 }
 
-const dbAlerts = new JsonDatabase<Alert>('alerts');
-const dbUsers = new JsonDatabase<{ id: string; name: string; email: string; password: string; createdAt: string }>('users');
-
-function attachUser(alert: Alert): AlertWithUser {
-  const user = dbUsers.findById(alert.userId);
-  return {
-    ...alert,
-    author: user?.name || 'Morador da comunidade',
-    user: user ? { name: user.name, email: user.email } : undefined,
-  };
-}
-
 export class AlertRepository {
-  async create(data: Omit<Alert, 'id' | 'createdAt'>): Promise<Alert> {
-    return dbAlerts.create(data);
+  async create(data: Omit<Alert, 'id' | 'createdAt'>): Promise<AlertWithUser> {
+    const alert = await prisma.alert.create({
+      data: {
+        title: data.title,
+        type: data.type,
+        description: data.description,
+        location: data.location,
+        radiusKm: data.radiusKm,
+        severity: data.severity,
+        mapX: data.mapX,
+        mapY: data.mapY,
+        userId: data.userId,
+      },
+      include: {
+        user: {
+          select: {
+            name: true,
+            email: true,
+          },
+        },
+      },
+    });
+
+    return {
+      ...alert,
+      author: alert.user?.name || 'Morador da comunidade',
+    };
   }
 
   async findAll(): Promise<AlertWithUser[]> {
-    const alerts = dbAlerts.findAll();
-    const sorted = alerts.sort(
-      (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-    );
-    return sorted.map(attachUser);
+    const alerts = await prisma.alert.findMany({
+      orderBy: {
+        createdAt: 'desc',
+      },
+      include: {
+        user: {
+          select: {
+            name: true,
+            email: true,
+          },
+        },
+      },
+    });
+
+    return alerts.map((alert) => ({
+      ...alert,
+      author: alert.user?.name || 'Morador da comunidade',
+    }));
   }
 
   async findById(id: string): Promise<AlertWithUser | null> {
-    const alert = dbAlerts.findById(id);
+    const alert = await prisma.alert.findUnique({
+      where: { id },
+      include: {
+        user: {
+          select: {
+            name: true,
+            email: true,
+          },
+        },
+      },
+    });
+
     if (!alert) return null;
-    return attachUser(alert);
+
+    return {
+      ...alert,
+      author: alert.user?.name || 'Morador da comunidade',
+    };
   }
 }
 

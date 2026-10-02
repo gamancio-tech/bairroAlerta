@@ -2,7 +2,14 @@
 (function () {
   'use strict';
 
-  const API_URL = 'http://localhost:3333/api';
+  // 🔌 BACKEND URL: Em localhost usa a porta 3333; no Vercel/Produção conecta à URL do Render
+  const PRODUCTION_API_URL = 'https://SEU-BACKEND.onrender.com/api'; // Insira aqui a URL gerada no Render
+  const isLocalhost = Boolean(
+    window.location.hostname === 'localhost' ||
+    window.location.hostname === '127.0.0.1' ||
+    window.location.protocol === 'file:'
+  );
+  const API_URL = isLocalhost ? 'http://localhost:3333/api' : (window.__API_URL__ || PRODUCTION_API_URL);
   const USE_MOCK = false;
   const TOKEN_KEY = 'bairro-alerta-token';
   const USER_KEY = 'bairro-alerta-user';
