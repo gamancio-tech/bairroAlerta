@@ -1,259 +1,277 @@
 # 🚨 Bairro Alerta — Rede Comunitária de Alertas de Desastres Climáticos
 
-> **Projeto desenvolvido para Hackathon com foco em impacto social, sustentabilidade e resiliência climática.**  
-> Uma plataforma colaborativa e hiperlocal para emissão e visualização de alertas sobre eventos climáticos extremos (enchentes, deslizamentos, vendavais, calor extremo e tempestades provocadas por anomalias climáticas como o *Super El Niño*).
+> Projeto desenvolvido na **Hackatown (Jornada Acadêmica UNIFRAN 2026)**, em equipe de 5 pessoas, com foco em impacto social e resiliência climática. O protótipo funcional foi entregue em 3 horas.
+
+Plataforma colaborativa e hiperlocal onde moradores registram e consultam alertas sobre eventos climáticos extremos (enchentes, alagamentos, deslizamentos, vendavais, calor extremo e outros).
+
+🔗 **Demonstração (front-end):** https://bairroalerta-frontend.vercel.app/
+🔗 **API (hospedada no Render):** https://bairroalerta.onrender.com
 
 ---
 
 ## 📌 Sumário
-- [💡 Sobre o Projeto](#-sobre-o-projeto)
-- [🎯 O Problema & A Solução](#-o-problema--a-solução)
-- [✨ Funcionalidades](#-funcionalidades)
-- [🛠️ Tecnologias Utilizadas](#️-tecnologias-utilizadas)
-- [📂 Estrutura de Pastas](#-estrutura-de-pastas)
-- [🏛️ Arquitetura do Sistema](#️-arquitetura-do-sistema)
-- [🔌 Endpoints da API (REST)](#-endpoints-da-api-rest)
-- [🚀 Como Executar o Projeto](#-como-executar-o-projeto)
-  - [Pré-requisitos](#pré-requisitos)
-  - [1. Backend](#1-execução-do-backend)
-  - [2. Frontend](#2-execução-do-frontend)
-- [🗺️ Próximos Passos](#️-próximos-passos)
-- [👥 Equipe](#-equipe)
+
+- [Sobre o projeto](#-sobre-o-projeto)
+- [Funcionalidades](#-funcionalidades)
+- [Tecnologias](#️-tecnologias)
+- [Arquitetura](#️-arquitetura)
+- [Estrutura de pastas](#-estrutura-de-pastas)
+- [Endpoints da API](#-endpoints-da-api)
+- [Como executar](#-como-executar)
+- [Próximos passos](#️-próximos-passos)
+- [Equipe](#-equipe)
 
 ---
 
-## 💡 Sobre o Projeto
+## 💡 Sobre o projeto
 
-Com o aumento na frequência e intensidade de eventos climáticos severos decorrentes do aquecimento global, comunidades locais frequentemente sofrem com a falta de comunicação imediata e hiperlocal. 
-
-O **Bairro Alerta** é uma solução ágil e de resposta rápida: uma aplicação web onde os próprios cidadãos e voluntários reportam ocorrências em tempo real, informando localização, tipo de desastre, raio estimado de perigo, gravidade e ponto visual no mapa, permitindo que a vizinhança tome medidas de proteção e evacuação com antecedência.
-
----
-
-## 🎯 O Problema & A Solução
-
-* **O Problema:** Avisos oficiais da Defesa Civil nem sempre chegam a tempo ou com o nível de detalhe de uma rua/bairro específico que está alagando naquele exato minuto.
-* **A Solução:** Um mural colaborativo e mapa interativo em tempo real onde qualquer morador cadastrado pode registrar um alerta com severidade e coordenadas, salvando vidas e patrimônios.
+Avisos oficiais nem sempre chegam com o nível de detalhe de uma rua ou bairro específico. O **Bairro Alerta** permite que moradores cadastrados registrem ocorrências informando tipo de evento, gravidade, raio estimado de impacto e a posição no mapa, para que a vizinhança possa se proteger com antecedência.
 
 ---
 
 ## ✨ Funcionalidades
 
-1. **Autenticação Segura:**
-   - Cadastro e Login de moradores/voluntários.
-   - Proteção de senhas com hash criptográfico (`bcrypt`).
-   - Autenticação stateless via JSON Web Token (`JWT`).
+**Autenticação**
+- Cadastro e login de moradores (senha com no mínimo 8 caracteres)
+- Senhas protegidas com `bcrypt`
+- Autenticação stateless com JWT (token com validade de 1 dia)
+- A API não inicia sem `JWT_SECRET` (mínimo de 32 caracteres) nem sem `DATABASE_URL`
 
-2. **Mapa Interativo & Feed de Alertas:**
-   - Visualização dos alertas recentes em cards detalhados.
-   - Pinos interativos posicionados no mapa com código de cores por gravidade (*Baixa*, *Média*, *Alta*, *Crítica*).
-   - Filtros em tempo real por tipo de desastre e severidade.
-   - Modal de detalhes completos ao clicar no alerta ou no pino.
+**Mural e mapa de alertas**
+- Lista de alertas ordenada do mais recente para o mais antigo
+- Pinos no mapa com cor por gravidade: **Baixa**, **Média**, **Alta** e **Crítica**
+- Filtros por tipo de evento e por gravidade
+- Detalhes completos de cada alerta
 
-3. **Emissão de Alertas Colaborativos:**
-   - Seleção do ponto exato no mapa interativo (`mapX` e `mapY`).
-   - Definição do tipo do desastre (Enchente, Alagamento, Deslizamento, Vendaval, Incêndio, etc.).
-   - Raio estimado de impacto (em km), nível de gravidade e descrição detalhada.
+**Criação de alertas** (apenas usuários autenticados)
+- Seleção do ponto no mapa
+- Tipos: Enchente, Alagamento, Chuva forte, Deslizamento, Tempestade, Vendaval, Calor extremo e Outros
+- Gravidade, raio estimado (em km) e descrição
 
-4. **Guia de Orientações Preventivas e Emergenciais:**
-   - Página exclusiva com orientações de segurança e números de emergência (Defesa Civil 199, Bombeiros 193, SAMU 192).
+**Guia de orientações**
+- Procedimentos preventivos e de emergência por tipo de evento
+- Contatos de emergência: Defesa Civil **199**, Bombeiros **193** e SAMU **192**
 
----
-
-## 🛠️ Tecnologias Utilizadas
-
-### **Frontend** (100% Vanilla — Leve, performático e sem dependências pesadas)
-- **HTML5:** Estrutura semântica e acessível.
-- **CSS3:** Estilização moderna com variáveis CSS, responsividade mobile-first e temas de perigo/alerta.
-- **JavaScript (ES6+):** Manipulação de DOM, renderização de pinos no mapa e consumo assíncrono via `fetch`.
-
-### **Backend** (Robusto, tipado e escalável)
-- **Node.js** com **TypeScript**
-- **Express:** Servidor e roteamento da API REST.
-- **Persistência Híbrida / Ágil:**
-  - Suporte a persistência em arquivo JSON local (`backend/data/db.json`) com gravação atômica (permite rodar imediatamente sem necessidade de configurar bancos externos).
-  - Suporte a **PostgreSQL** com **Prisma ORM** (modelagem e migrations prontas em `prisma/schema.prisma`).
-- **JWT (jsonwebtoken):** Proteção de rotas autenticadas.
-- **Bcrypt:** Criptografia de senhas.
-- **CORS & Dotenv:** Segurança e parametrização por variáveis de ambiente.
+> ℹ️ O mapa atual é uma **imagem ilustrativa** (`frontend/assets/mapa-bairro.svg`). A posição de cada alerta é guardada como coordenadas relativas (`mapX` e `mapY`), e não como latitude e longitude. A integração com mapas reais está nos próximos passos.
 
 ---
 
-## 📂 Estrutura de Pastas
+## 🛠️ Tecnologias
+
+**Front-end** (HTML, CSS e JavaScript puros, sem frameworks)
+- HTML5, CSS3 e JavaScript (ES6+)
+- Consumo da API com `fetch`
+- Hospedagem na Vercel
+
+**Back-end**
+- Node.js e TypeScript
+- Express 4 (rotas e middlewares)
+- **PostgreSQL** (Neon) com **Prisma ORM**
+- `jsonwebtoken` (JWT) e `bcrypt` (hash de senhas)
+- **Zod** (validação dos dados de entrada)
+- **Jest** e **Supertest** (testes automatizados)
+- `cors` e `dotenv`
+- Hospedagem no Render
+
+---
+
+## 🏛️ Arquitetura
+
+O back-end segue uma arquitetura em camadas, separando rotas, regras de negócio e acesso a dados:
+
+```mermaid
+graph TD
+    Client[Front-end: HTML/CSS/JS] -->|HTTP + JSON, token JWT| Routes[Routes]
+    Routes --> Middleware[authMiddleware: valida o Bearer token]
+    Routes --> Validate[validate: schemas Zod]
+    Validate --> Controllers[Controllers: recebem a requisição]
+    Middleware --> Controllers
+    Controllers --> Services[Services: regras de negócio]
+    Services --> Repositories[Repositories: acesso a dados]
+    Repositories --> Prisma[Prisma ORM]
+    Prisma --> DB[(PostgreSQL)]
+```
+
+**Modelo de dados** (`backend/prisma/schema.prisma`): `User` (1) ── (N) `Alert`.
+
+---
+
+## 📂 Estrutura de pastas
 
 ```text
 bairroAlerta/
-│
 ├── backend/
-│   ├── data/
-│   │   └── db.json                   # Banco de dados local em JSON (dados persistidos)
 │   ├── prisma/
-│   │   └── schema.prisma             # Modelagem relacional para PostgreSQL / Prisma
+│   │   ├── schema.prisma        # Modelos User e Alert (PostgreSQL)
+│   │   └── seed.ts              # Importa dados antigos de data/*.json (opcional)
 │   ├── src/
-│   │   ├── @types/                   # Extensão dos tipos Express (ex: req.userId)
-│   │   ├── config/
-│   │   │   └── jsonDatabase.ts       # Gerenciador de persistência local atômica
-│   │   ├── controllers/              # Camada de controle e validação de requisições HTTP
-│   │   │   ├── authController.ts
-│   │   │   └── alertController.ts
-│   │   ├── services/                 # Regras de negócio
-│   │   │   ├── authService.ts
-│   │   │   └── alertService.ts
-│   │   ├── repositories/             # Camada de acesso a dados
-│   │   │   ├── userRepository.ts
-│   │   │   └── alertRepository.ts
-│   │   ├── routes/                   # Definição dos endpoints REST
-│   │   │   ├── authRoutes.ts
-│   │   │   ├── alertRoutes.ts
-│   │   │   └── index.ts
-│   │   ├── middlewares/              # Interceptadores (authMiddleware para JWT)
-│   │   │   └── authMiddleware.ts
-│   │   ├── app.ts                    # Configuração dos middlewares do Express
-│   │   └── server.ts                 # Inicialização do servidor HTTP
-│   ├── .env                          # Variáveis de ambiente locais
+│   │   ├── config/              # env.ts (variáveis de ambiente) e prisma.ts
+│   │   ├── controllers/         # authController, alertController
+│   │   ├── middlewares/         # authMiddleware, validate, errorHandler
+│   │   ├── repositories/        # userRepository, alertRepository
+│   │   ├── routes/              # authRoutes, alertRoutes, index
+│   │   ├── schemas/             # Schemas Zod de cadastro, login e alertas
+│   │   ├── services/            # authService, alertService
+│   │   ├── types/               # express.d.ts (req.userId)
+│   │   ├── utils/               # AppError, asyncHandler, hash, jwt, httpStatusCodes
+│   │   ├── app.ts               # Configuração do Express
+│   │   └── server.ts            # Inicialização do servidor
+│   ├── tests/                   # Testes com Jest + Supertest (sem banco real)
 │   ├── .env.example
+│   ├── jest.config.js
 │   ├── tsconfig.json
 │   └── package.json
 │
 ├── frontend/
-│   ├── api/
-│   │   └── api.js                    # Cliente de integração com o Backend (Fetch API + Token)
-│   ├── assets/                       # Ícones e mapas ilustrativos
-│   ├── pages/                        # Páginas secundárias
-│   │   ├── login.html                # Tela de Login
-│   │   ├── cadastro.html             # Tela de Cadastro de Usuário
-│   │   ├── criar-alerta.html         # Formulário com seleção de ponto no mapa
-│   │   └── orientacoes.html          # Guia de procedimentos preventivos e de emergência
-│   ├── scripts/                      # Lógica do cliente
-│   │   ├── alerts.js                 # Listagem de alertas, filtros e pinos no mapa
-│   │   ├── create-alert.js           # Criação de alerta com clique no mapa
-│   │   ├── guidance.js               # Interações do guia de orientações
-│   │   ├── guidance-data.js          # Base de conhecimento de emergência
-│   │   ├── login.js                  # Lógica de login e armazenamento de sessão
-│   │   └── register.js               # Lógica de cadastro
-│   ├── styles/                       # Folhas de estilo modularizadas
-│   │   ├── global.css
-│   │   ├── alerts.css
-│   │   ├── auth.css
-│   │   ├── create-alert.css
-│   │   └── guidance.css
-│   └── index.html                    # Página Principal (Mural + Mapa Interativo)
+│   ├── assets/
+│   │   └── mapa-bairro.svg      # Mapa ilustrativo
+│   ├── pages/                   # login, cadastro, criar-alerta, orientacoes
+│   ├── scripts/                 # api.js (cliente da API), alerts.js, create-alert.js, ...
+│   ├── styles/                  # CSS por página
+│   └── index.html               # Mural de alertas + mapa
 │
-├── docs/                             # Documentação técnica e planos de integração
-│   ├── api_endpoints.md
-│   ├── plano_integracao_frontend_backend.md
-│   └── plano_de_implementacao_mapa_backend.md
-│
-└── README.md                         # Documentação geral do projeto
+└── README.md
 ```
 
 ---
 
-## 🏛️ Arquitetura do Sistema
+## 🔌 Endpoints da API
 
-O backend adota o padrão em camadas (**Layered Architecture**), desacoplando rotas, lógica de negócio e persistência:
+Prefixo: `/api`. Rotas protegidas exigem o cabeçalho `Authorization: Bearer <token>`.
 
-```mermaid
-graph TD
-    Client[Frontend: HTML/CSS/JS Vanilla] -->|HTTP / JSON com Token JWT| Routes[Routes: Express]
-    Routes -->|Validação do Bearer Token| Middleware[Auth Middleware]
-    Routes --> Controllers[Controllers]
-    Middleware --> Controllers
-    Controllers --> Services[Services: Regras de Negócio & Hashing]
-    Services --> Repositories[Repositories: Camada de Dados]
-    Repositories --> Storage[(Persistência: JSON DB / Prisma Postgres)]
+### Autenticação (`/api/auth`)
+
+| Método | Endpoint | Protegido | Descrição | Body |
+| :--- | :--- | :---: | :--- | :--- |
+| `POST` | `/api/auth/register` | ❌ | Cadastra um morador | `{ "name", "email", "password" }` |
+| `POST` | `/api/auth/login` | ❌ | Autentica e retorna `{ message, token, user }` | `{ "email", "password" }` |
+
+### Alertas (`/api/alerts`)
+
+| Método | Endpoint | Protegido | Descrição |
+| :--- | :--- | :---: | :--- |
+| `GET` | `/api/alerts` | ❌ | Lista os alertas, do mais recente para o mais antigo |
+| `GET` | `/api/alerts/:id` | ❌ | Detalhes de um alerta (`404` se não existir) |
+| `POST` | `/api/alerts` | ✅ | Cria um alerta (retorna `201`) |
+
+Exemplo de body para `POST /api/alerts` (todos os campos são obrigatórios):
+
+```json
+{
+  "title": "Rua alagada",
+  "type": "ENCHENTE",
+  "description": "Água subindo rápido na avenida principal",
+  "location": "Rua das Flores",
+  "radiusKm": 1.5,
+  "severity": "ALTA",
+  "mapX": 45.2,
+  "mapY": 60.1
+}
 ```
 
+- `type`: `ENCHENTE`, `ALAGAMENTO`, `CHUVA`, `DESLIZAMENTO`, `TEMPESTADE`, `VENDAVAL`, `CALOR_EXTREMO` ou `OUTROS`
+- `severity`: `BAIXA`, `MEDIA`, `ALTA` ou `CRITICA`
+
+**Regras de validação** (erros devolvem `400` com `{ "error": "...", "details": [{ "field", "message" }] }`):
+
+| Campo | Regra |
+| :--- | :--- |
+| `name` | 2 a 80 caracteres |
+| `email` | formato válido (salvo em minúsculas) |
+| `password` | mínimo de 8 caracteres |
+| `title` | 3 a 70 caracteres |
+| `description` | 5 a 300 caracteres |
+| `location` | 2 a 80 caracteres |
+| `radiusKm` | entre 0,1 e 50 |
+| `mapX`, `mapY` | entre 0 e 100 |
+
+**Status HTTP:** `201` criado, `400` dados inválidos, `401` token ausente/inválido ou credenciais incorretas, `404` não encontrado, `409` e-mail já cadastrado. O e-mail do autor nunca é devolvido nas rotas de alertas, apenas o nome (`author`).
+
+### Diagnóstico
+
+| Método | Endpoint | Descrição |
+| :--- | :--- | :--- |
+| `GET` | `/health` | Healthcheck: `{ "status": "OK", "message": "Backend is running" }` |
+
 ---
 
-## 🔌 Endpoints da API (REST)
-
-A API responde por padrão no prefixo `/api`.
-
-### 1. Autenticação (`/api/auth`)
-| Método | Endpoint | Protegido | Descrição | Payload (Body) |
-| :--- | :--- | :---: | :--- | :--- |
-| `POST` | `/api/auth/register` | ❌ | Cadastra um novo morador | `{ "name": "Maria", "email": "maria@email.com", "password": "senha" }` |
-| `POST` | `/api/auth/login` | ❌ | Autentica e retorna JWT | `{ "email": "maria@email.com", "password": "senha" }` |
-
-### 2. Alertas Comunitários (`/api/alerts`)
-| Método | Endpoint | Protegido | Descrição | Exemplo de Retorno / Payload |
-| :--- | :--- | :---: | :--- | :--- |
-| `GET` | `/api/alerts` | ❌ | Lista todos os alertas em ordem decrescente | Array com alertas, autor, severidade e coordenadas `mapX`/`mapY` |
-| `GET` | `/api/alerts/:id` | ❌ | Retorna os detalhes de um alerta específico | Objeto completo do alerta e informações do autor |
-| `POST` | `/api/alerts` | ✅ | Registra novo alerta comunitário | `{ "title": "Rua Alagada", "type": "ENCHENTE", "description": "Água subindo rápido", "location": "Rua das Flores", "radiusKm": 1.5, "severity": "ALTA", "mapX": 45.2, "mapY": 60.1 }` |
-
-### 3. Diagnóstico
-| Método | Endpoint | Protegido | Descrição | Retorno |
-| :--- | :--- | :---: | :--- | :--- |
-| `GET` | `/health` | ❌ | Healthcheck do serviço | `{ "status": "OK", "message": "Backend is running" }` |
-
----
-
-## 🚀 Como Executar o Projeto
+## 🚀 Como executar
 
 ### Pré-requisitos
-- [Node.js](https://nodejs.org/) (versão 18 ou superior)
-- Navegador moderno (Chrome, Firefox, Edge, Safari)
+
+- [Node.js](https://nodejs.org/) 18 ou superior
+- Um banco **PostgreSQL**: pode ser local ou gratuito na nuvem, como [Neon](https://neon.tech/)
+
+### 1. Back-end
+
+```bash
+cd backend
+npm install        # também executa `prisma generate`
+cp .env.example .env
+```
+
+Edite o `.env` com os seus valores:
+
+```env
+PORT=3333
+JWT_SECRET="troque-por-uma-chave-longa-e-aleatoria"
+DATABASE_URL="postgresql://USUARIO:SENHA@HOST:5432/NOME_DO_BANCO"
+# Opcional: origens do front-end permitidas no CORS, separadas por vírgula
+# CORS_ORIGIN="https://seu-front.vercel.app,http://localhost:3000"
+```
+
+Gere um `JWT_SECRET` seguro com:
+
+```bash
+node -e "console.log(require('crypto').randomBytes(48).toString('hex'))"
+```
+
+Crie as tabelas e inicie o servidor:
+
+```bash
+npm run db:push    # cria as tabelas no banco
+npm run dev        # servidor em http://localhost:3333
+```
+
+Para produção: `npm run build` e depois `npm start`.
+
+**Testes** (não precisam de banco de dados):
+
+```bash
+npm test
+```
+
+### 2. Front-end
+
+```bash
+cd frontend
+npx serve .
+```
+
+Por padrão, o front-end usa a API de produção (`https://bairroalerta.onrender.com/api`). Para usar o back-end local, defina `window.__API_URL__ = 'http://localhost:3333/api'` antes de carregar `scripts/api.js`, ou altere `PRODUCTION_API_URL` nesse arquivo.
 
 ---
 
-### 1. Execução do Backend
+## 🗺️ Próximos passos
 
-1. Abra o terminal na pasta `backend`:
-   ```bash
-   cd backend
-   ```
-
-2. Instale as dependências:
-   ```bash
-   npm install
-   ```
-
-3. Crie ou configure seu arquivo `.env` (já existe um pré-configurado):
-   ```env
-   PORT=3333
-   JWT_SECRET="bairroAlertaSenhaSuperSegura"
-   ```
-
-4. Inicie o servidor de desenvolvimento:
-   ```bash
-   npm run dev
-   ```
-
-> 💡 **Nota sobre o Banco de Dados:** O sistema utiliza automaticamente a persistência em JSON (`backend/data/db.json`), portanto você **não precisa instalar nem configurar nenhum banco externo** para testar imediatamente. Se desejar usar PostgreSQL com Prisma, as configurações e migrações permanecem disponíveis na pasta `prisma/`.
-
-O servidor estará ativo em: **`http://localhost:3333`**
-
----
-
-### 2. Execução do Frontend
-
-O frontend é 100% Vanilla (HTML, CSS e JavaScript) e já está integrado à API (`USE_MOCK = false` em `frontend/api/api.js`).
-
-1. Acesse a pasta `frontend`:
-   ```bash
-   cd ../frontend
-   ```
-
-2. Execute através de um servidor web local ou extensão:
-   - **Opção A (VS Code):** Clique com o botão direito em `index.html` e selecione **"Open with Live Server"**.
-   - **Opção B (Node / npx):**
-     ```bash
-     npx serve .
-     ```
-   - **Opção C:** Abra diretamente o arquivo `frontend/index.html` no seu navegador.
-
----
-
-## 🗺️ Próximos Passos
-
-- [ ] **Geolocalização por GPS / Leaflet:** Integração com mapas reais via OpenStreetMap/Mapbox.
-- [ ] **Notificações Push / WhatsApp:** Alertas automáticos via Webhook/Twilio para moradores da região delimitada.
-- [ ] **Confirmação Comunitária ("Ainda está ocorrendo?"):** Votação para encerramento automático de alertas normalizados.
-- [ ] **Integração com CEMADEN e Defesa Civil:** Importação automática de alertas meteorológicos governamentais.
+- [ ] Mapa real com geolocalização (Leaflet + OpenStreetMap)
+- [ ] Limite de tentativas (rate limit) nas rotas de login e cadastro
+- [ ] Migrations do Prisma em vez de `db push`
+- [ ] Notificações push para moradores da região
+- [ ] Confirmação comunitária ("o problema ainda está ocorrendo?")
+- [ ] Integração com dados da Defesa Civil e do CEMADEN
+- [ ] Docker e docker-compose para o ambiente de desenvolvimento
 
 ---
 
 ## 👥 Equipe
-Projeto concebido e prototipado com foco em **resiliência comunitária, agilidade de resposta e impacto social diante de eventos climáticos extremos**.
+
+Projeto desenvolvido por 5 pessoas durante a Hackatown (Jornada Acadêmica UNIFRAN 2026).
+
+| Integrante | Responsabilidade |
+| :--- | :--- |
+| **Gustavo Amancio** | API REST, autenticação (JWT) e arquitetura do back-end |
+| _[Nome]_ | _[Responsabilidade]_ |
+| _[Nome]_ | _[Responsabilidade]_ |
+| _[Nome]_ | _[Responsabilidade]_ |
+| _[Nome]_ | _[Responsabilidade]_ |
