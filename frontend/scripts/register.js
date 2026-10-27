@@ -66,8 +66,8 @@
       if (!passwordInput.value) {
         setFieldError(passwordInput, fieldErrors.password, 'Informe uma senha.');
         firstInvalid = firstInvalid || passwordInput;
-      } else if (passwordInput.value.length < 6) {
-        setFieldError(passwordInput, fieldErrors.password, 'A senha deve ter pelo menos 6 caracteres.');
+      } else if (passwordInput.value.length < 8) {
+        setFieldError(passwordInput, fieldErrors.password, 'A senha deve ter pelo menos 8 caracteres.');
         firstInvalid = firstInvalid || passwordInput;
       }
       if (!confirmInput.value) {

@@ -111,7 +111,8 @@
       throw new Error('Não foi possível conectar ao servidor. Tente novamente.');
     }
 
-    if (response.status === 401) {
+    // 401 só significa "sessão expirada" em rotas autenticadas; no login é senha incorreta.
+    if (response.status === 401 && auth) {
       logout();
       throw new Error('Sessão expirada. Entre novamente.');
     }
