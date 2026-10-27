@@ -1,44 +1,46 @@
 import { userRepository, User } from '../repositories/userRepository';
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
+import { LoginInput, RegisterInput } from '../schemas/authSchemas';
+import { AppError } from '../utils/AppError';
+import { comparePassword, hashPassword } from '../utils/hash';
+import { HttpStatusCode } from '../utils/httpStatusCodes';
+import { signToken } from '../utils/jwt';
+
+const EMAIL_IN_USE = 'E-mail já cadastrado.';
+const INVALID_CREDENTIALS = 'Credenciais inválidas.';
+
+const toPublicUser = ({ id, name, email, createdAt }: User) => ({ id, name, email, createdAt });
 
 export class AuthService {
-  async register(data: Omit<User, 'id' | 'createdAt'>) {
-    const existingUser = await userRepository.findByEmail(data.email);
-    if (existingUser) {
-      throw new Error('E-mail já cadastrado.');
+  async register({ name, email, password }: RegisterInput) {
+    if (await userRepository.findByEmail(email)) {
+      throw new AppError(EMAIL_IN_USE, HttpStatusCode.CONFLICT);
     }
 
-    const hashedPassword = await bcrypt.hash(data.password, 10);
-    const newUser = await userRepository.create({
-      ...data,
-      password: hashedPassword,
-    });
-
-    const { password, ...userWithoutPassword } = newUser;
-    return userWithoutPassword;
+    try {
+      const user = await userRepository.create({
+        name,
+        email,
+        password: await hashPassword(password),
+      });
+      return toPublicUser(user);
+    } catch (error) {
+      // P2002 = violação de unicidade (dois cadastros simultâneos com o mesmo e-mail).
+      if ((error as { code?: string }).code === 'P2002') {
+        throw new AppError(EMAIL_IN_USE, HttpStatusCode.CONFLICT);
+      }
+      throw error;
+    }
   }
 
-  async login(email: string, passwordString: string) {
+  async login({ email, password }: LoginInput) {
     const user = await userRepository.findByEmail(email);
-    if (!user) {
-      throw new Error('Credenciais inválidas.');
+
+    // A mesma mensagem para e-mail inexistente e senha errada evita revelar quais e-mails estão cadastrados.
+    if (!user || !(await comparePassword(password, user.password))) {
+      throw new AppError(INVALID_CREDENTIALS, HttpStatusCode.UNAUTHORIZED);
     }
 
-    const isPasswordValid = await bcrypt.compare(passwordString, user.password);
-    if (!isPasswordValid) {
-      throw new Error('Credenciais inválidas.');
-    }
-
-    const secret = process.env.JWT_SECRET || 'fallback_secret';
-    const token = jwt.sign({ userId: user.id }, secret, { expiresIn: '1d' });
-
-    const { password, ...userWithoutPassword } = user;
-
-    return {
-      user: userWithoutPassword,
-      token,
-    };
+    return { user: toPublicUser(user), token: signToken(user.id) };
   }
 }
 

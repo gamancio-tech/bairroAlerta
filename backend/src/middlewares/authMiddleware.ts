@@ -1,28 +1,20 @@
-import { Request, Response, NextFunction } from 'express';
-import jwt from 'jsonwebtoken';
+import { NextFunction, Request, Response } from 'express';
+import { AppError } from '../utils/AppError';
 import { HttpStatusCode } from '../utils/httpStatusCodes';
+import { verifyToken } from '../utils/jwt';
 
-export interface AuthRequest extends Request {
-  userId?: string;
-}
-
-export const authMiddleware = (req: AuthRequest, res: Response, next: NextFunction): void => {
+export const authMiddleware = (req: Request, _res: Response, next: NextFunction): void => {
   const authHeader = req.headers.authorization;
 
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
-    res.status(HttpStatusCode.UNAUTHORIZED).json({ error: 'Token não fornecido ou em formato inválido.' });
+    next(new AppError('Token não fornecido ou em formato inválido.', HttpStatusCode.UNAUTHORIZED));
     return;
   }
 
-  const token = authHeader.split(' ')[1];
-  const secret = process.env.JWT_SECRET || 'fallback_secret';
-
   try {
-    const decoded = jwt.verify(token, secret) as { userId: string };
-    req.userId = decoded.userId;
+    req.userId = verifyToken(authHeader.slice('Bearer '.length)).userId;
     next();
-  } catch (error) {
-    res.status(HttpStatusCode.UNAUTHORIZED).json({ error: 'Token inválido ou expirado.' });
-    return;
+  } catch {
+    next(new AppError('Token inválido ou expirado.', HttpStatusCode.UNAUTHORIZED));
   }
 };

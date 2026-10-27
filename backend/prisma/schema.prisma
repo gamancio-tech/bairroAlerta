@@ -3,9 +3,8 @@ generator client {
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model User {
@@ -24,11 +23,13 @@ model Alert {
   description String
   location    String
   radiusKm    Float
-  severity    String   @default("media")
+  severity    String   @default("MEDIA")
   mapX        Float
   mapY        Float
   createdAt   DateTime @default(now())
-  
-  userId      String
-  user        User     @relation(fields: [userId], references: [id])
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  @@index([createdAt])
 }

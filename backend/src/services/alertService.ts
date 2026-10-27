@@ -1,20 +1,17 @@
-import { alertRepository, Alert } from '../repositories/alertRepository';
+import { alertRepository, NewAlert } from '../repositories/alertRepository';
 
 export class AlertService {
-  async create(data: Omit<Alert, 'id' | 'createdAt'>) {
-    if (!data.title || !data.type || !data.description || !data.location || !data.severity || data.radiusKm === undefined || data.mapX === undefined || data.mapY === undefined) {
-      throw new Error('Campos obrigatórios faltando.');
-    }
-
-    return await alertRepository.create(data);
+  // Os dados já chegam validados pelo schema (createAlertSchema) na rota.
+  async create(data: NewAlert) {
+    return alertRepository.create(data);
   }
 
   async findAll() {
-    return await alertRepository.findAll();
+    return alertRepository.findAll();
   }
 
   async findById(id: string) {
-    return await alertRepository.findById(id);
+    return alertRepository.findById(id);
   }
 }
 

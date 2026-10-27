@@ -1,18 +1,26 @@
+import type { Alert } from '@prisma/client';
 import { prisma } from '../config/prisma';
-import { Alert } from '@prisma/client';
 
-export { Alert };
+export type { Alert };
 
-export interface AlertWithUser extends Alert {
-  author?: string;
-  user?: {
-    name: string;
-    email: string;
-  };
-}
+export type NewAlert = Omit<Alert, 'id' | 'createdAt'>;
+
+export type AlertResponse = Alert & { author: string };
+
+const MAX_ALERTS_PER_LIST = 200;
+
+// Apenas o nome do autor é buscado: o e-mail nunca deve sair em uma rota pública.
+const withAuthorName = { user: { select: { name: true } } } as const;
+
+type AlertWithAuthor = Alert & { user: { name: string } };
+
+const toResponse = ({ user, ...alert }: AlertWithAuthor): AlertResponse => ({
+  ...alert,
+  author: user?.name || 'Morador da comunidade',
+});
 
 export class AlertRepository {
-  async create(data: Omit<Alert, 'id' | 'createdAt'>): Promise<AlertWithUser> {
+  async create(data: NewAlert): Promise<AlertResponse> {
     const alert = await prisma.alert.create({
       data: {
         title: data.title,
@@ -25,62 +33,29 @@ export class AlertRepository {
         mapY: data.mapY,
         userId: data.userId,
       },
-      include: {
-        user: {
-          select: {
-            name: true,
-            email: true,
-          },
-        },
-      },
+      include: withAuthorName,
     });
 
-    return {
-      ...alert,
-      author: alert.user?.name || 'Morador da comunidade',
-    };
+    return toResponse(alert);
   }
 
-  async findAll(): Promise<AlertWithUser[]> {
+  async findAll(): Promise<AlertResponse[]> {
     const alerts = await prisma.alert.findMany({
-      orderBy: {
-        createdAt: 'desc',
-      },
-      include: {
-        user: {
-          select: {
-            name: true,
-            email: true,
-          },
-        },
-      },
+      orderBy: { createdAt: 'desc' },
+      take: MAX_ALERTS_PER_LIST,
+      include: withAuthorName,
     });
 
-    return alerts.map((alert) => ({
-      ...alert,
-      author: alert.user?.name || 'Morador da comunidade',
-    }));
+    return alerts.map(toResponse);
   }
 
-  async findById(id: string): Promise<AlertWithUser | null> {
+  async findById(id: string): Promise<AlertResponse | null> {
     const alert = await prisma.alert.findUnique({
       where: { id },
-      include: {
-        user: {
-          select: {
-            name: true,
-            email: true,
-          },
-        },
-      },
+      include: withAuthorName,
     });
 
-    if (!alert) return null;
-
-    return {
-      ...alert,
-      author: alert.user?.name || 'Morador da comunidade',
-    };
+    return alert ? toResponse(alert) : null;
   }
 }
 

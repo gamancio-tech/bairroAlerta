@@ -1,8 +1,8 @@
 {
-  "name": "BairroAlerta",
+  "name": "bairro-alerta-backend",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "API REST do Bairro Alerta: rede comunitária de alertas de desastres climáticos",
+  "main": "dist/server.js",
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
     "build": "npx prisma generate && npx tsc",
@@ -10,32 +10,34 @@
     "postinstall": "prisma generate",
     "db:push": "prisma db push",
     "seed": "ts-node --transpile-only prisma/seed.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["express", "typescript", "prisma", "postgresql", "jwt"],
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
-    "@neondatabase/serverless": "^0.10.4",
-    "@prisma/adapter-neon": "^5.22.0",
     "@prisma/client": "^5.20.0",
     "@types/bcrypt": "^6.0.0",
     "@types/cors": "^2.8.19",
-    "@types/express": "^5.0.6",
+    "@types/express": "^4.17.21",
     "@types/jsonwebtoken": "^9.0.10",
-    "@types/node": "^26.6.4",
-    "bcrypt": "^5.1.1",
+    "@types/node": "^22.0.0",
+    "bcrypt": "^6.0.0",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.21.0",
     "jsonwebtoken": "^9.0.2",
     "prisma": "^5.20.0",
     "typescript": "^6.0.3",
-    "web-push": "^3.6.7",
-    "ws": "^8.21.3"
+    "zod": "^4.0.0"
   },
   "devDependencies": {
+    "@types/jest": "^29.5.14",
+    "@types/supertest": "^6.0.2",
+    "jest": "^29.7.0",
+    "supertest": "^7.0.0",
+    "ts-jest": "^29.2.5",
+    "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0"
   }
 }

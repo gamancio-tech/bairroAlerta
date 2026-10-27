@@ -1,10 +1,12 @@
+import type { User } from '@prisma/client';
 import { prisma } from '../config/prisma';
-import { User } from '@prisma/client';
 
-export { User };
+export type { User };
+
+export type NewUser = Pick<User, 'name' | 'email' | 'password'>;
 
 export class UserRepository {
-  async create(data: Omit<User, 'id' | 'createdAt'>): Promise<User> {
+  async create(data: NewUser): Promise<User> {
     return prisma.user.create({
       data: {
         name: data.name,
@@ -15,15 +17,11 @@ export class UserRepository {
   }
 
   async findByEmail(email: string): Promise<User | null> {
-    return prisma.user.findUnique({
-      where: { email },
-    });
+    return prisma.user.findUnique({ where: { email } });
   }
 
   async findById(id: string): Promise<User | null> {
-    return prisma.user.findUnique({
-      where: { id },
-    });
+    return prisma.user.findUnique({ where: { id } });
   }
 }
 

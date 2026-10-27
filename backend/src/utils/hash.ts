@@ -1,11 +1,9 @@
 import bcrypt from 'bcrypt';
-import {randomBytes} from 'crypto';
 
-export const hashPassword = async (password: string) => {
-  const salt = randomBytes(16).toString('hex');
-  return await bcrypt.hash(password + salt, 10);
-};
+const SALT_ROUNDS = 10;
 
-export const comparePassword = async (password: string, hash: string) => {
-  return await bcrypt.compare(password, hash);
-};
+// O bcrypt já gera e embute o salt no hash, não é preciso adicionar outro.
+export const hashPassword = (password: string): Promise<string> => bcrypt.hash(password, SALT_ROUNDS);
+
+export const comparePassword = (password: string, hash: string): Promise<boolean> =>
+  bcrypt.compare(password, hash);
